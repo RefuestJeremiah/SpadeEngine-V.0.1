@@ -48,7 +48,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			true);
 		  addOption(option);
 		}
-	}
 
         var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",

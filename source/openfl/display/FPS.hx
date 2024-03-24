@@ -26,6 +26,12 @@ import openfl.system.System;
 @:noDebug
 #end
 
+enum GLInfo
+{
+	RENDERER;
+	SHADING_LANGUAGE_VERSION;
+}
+
 class FPS extends TextField
 {
 	/**
@@ -88,7 +94,11 @@ class FPS extends TextField
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
+			text += "\nVersion: PsychEngine 0.6.3";
+            text += "\nBuild: KralOyuncu Test Build";
 			text += "\nMemory: " + memoryMegas + " MB";
+			text += "\nOS: " + '${lime.system.System.platformLabel}';
+            text += "\nGPU: " + '${getGLInfo(RENDERER)}';
 			#end
 
 			textColor = 0xFFFFFFFF;
@@ -107,5 +117,20 @@ class FPS extends TextField
 		}
 
 		cacheCount = currentCount;
+	}
+	private function getGLInfo(info:GLInfo):String
+	{
+		@:privateAccess
+		var gl:Dynamic = Lib.current.stage.context3D.gl;
+
+		switch (info)
+		{
+			case RENDERER:
+				return Std.string(gl.getParameter(gl.RENDERER));
+			case SHADING_LANGUAGE_VERSION:
+				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
+		}
+
+		return '';
 	}
 }
