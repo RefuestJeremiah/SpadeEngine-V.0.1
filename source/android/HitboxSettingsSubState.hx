@@ -39,6 +39,17 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		title = 'Hitbox Settings';
 		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 
+
+        if (ClientPrefs.hitboxmode == 'New'){
+			var option:Option = new Option('Extra Controls',
+			"Allow Extra Controls",
+			'hitboxExtend',
+			'bool',
+			true);
+		  addOption(option);
+		}
+	}
+
         var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
 			'hitboxExtend',
