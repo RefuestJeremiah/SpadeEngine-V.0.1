@@ -61,6 +61,7 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
+import PauseSubState
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -3356,6 +3357,20 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		#end
+	}
+	
+	function openOptionsMenu()
+	{
+		persistentUpdate = false;
+		MoveOption = true;
+		PlayState.deathCounter = 0;
+	    PlayState.seenCutscene = false;
+		MusicBeatState.switchState(new options.OptionsState());
+		FlxG.sound.playMusic(Paths.music('freakyMenu'));
+
+		#if desktop
+		DiscordClient.changePresence("Options Menu", null, null, true);
 		#end
 	}
 

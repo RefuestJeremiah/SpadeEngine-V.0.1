@@ -26,12 +26,14 @@ class PauseSubState extends MusicBeatSubstate
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
+	
+	public static var MoveOption:Bool;
+	
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
 	//var botplayText:FlxText;
-
-    public static var MoveOption:Bool;
+	
 	public static var songName:String = '';
 
 	public function new(x:Float, y:Float)
@@ -140,7 +142,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		else
 		{
-		        addVirtualPad(UP_DOWN, A);
+		        addVirtualPad(FULL, A);
 		}
 		addPadCamera();
 		#end
@@ -266,6 +268,7 @@ class PauseSubState extends MusicBeatSubstate
 		                        MusicBeatState.switchState(new editors.ChartingState());
 		                        PlayState.chartingMode = true;
 		        case 'Options':
+		            MoveOption = true;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					MusicBeatState.switchState(new options.OptionsState());
