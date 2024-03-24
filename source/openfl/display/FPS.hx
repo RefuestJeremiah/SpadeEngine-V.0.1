@@ -89,16 +89,15 @@ class FPS extends TextField
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
+		    text += "\nVersion: PsychEngine 0.6.3";
+            text += "\nBuild: KralOyuncu Test Build"
 			text = "FPS: " + currentFPS;
 			var memoryMegas:Float = 0;
 			
 			#if openfl
-			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			text += "\nVersion: PsychEngine 0.6.3";
-            text += "\nBuild: KralOyuncu Test Build";
+			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));;
 			text += "\nMemory: " + memoryMegas + " MB";
 			text += "\nOS: " + '${lime.system.System.platformLabel}';
-            text += "\nGPU: " + '${getGLInfo(RENDERER)}';
 			#end
 
 			textColor = 0xFFFFFFFF;
