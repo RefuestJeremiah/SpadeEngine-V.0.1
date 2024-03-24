@@ -61,7 +61,7 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
-import PauseSubState
+import PauseSubState;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
