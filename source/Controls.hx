@@ -57,18 +57,12 @@ enum abstract Action(String) to String from String
 	var SPACE = 'space';
 	var SPACE_P = 'space-press';
 	var SPACE_R = 'space-release';
-	var EXTRA1 = 'extra1';
-	var EXTRA1_P = 'extra1-press';
-	var EXTRA1_R = 'extra1-release';
-	var RSHIFT = 'rshift';
-	var RSHIFT_P = 'rshift-press';
-	var RSHIFT_R = 'rshift-release';
-	var LSHIFT = 'lshift';
-	var LSHIFT_P = 'lshift-press';
-	var LSHIFT_R = 'lshift-release';
-	var EXTRA4 = 'extra4';
-	var EXTRA4_P = 'extra4-press';
-	var EXTRA4_R = 'extra4-release';
+	var Q = 'q';
+	var Q_P = 'q-press';
+	var Q_R = 'q-release';
+	var E = 'e';
+	var E_P = 'e-press';
+	var E_R = 'e-release';
 }
 #else
 @:enum
@@ -104,11 +98,8 @@ abstract Action(String) to String from String
 	var RESET = "reset";
 	var SHIFT = 'shift';
 	var SPACE = 'space';
-	
-	var EXTRA1 = 'extra1';
-	var RSHIFT = 'rshift';
-	var LSHIFT = 'lshift';
-	var LSHIFT = 'extra4';
+	var Q = 'q';
+	var E = 'e';
 	
 }
 #end
@@ -140,11 +131,8 @@ enum Control
 	PAUSE;
 	SHIFT;
 	SPACE;
-	
-	EXTRA1;
-	RSHIFT;
-	LSHIFT;
-	EXTRA4;
+	Q;
+	E;
 }
 
 enum KeyboardScheme
@@ -195,19 +183,12 @@ class Controls extends FlxActionSet
 	var _space = new FlxActionDigital(Action.SPACE);
 	var _spaceP = new FlxActionDigital(Action.SPACE_P);
 	var _spaceR = new FlxActionDigital(Action.SPACE_R);
-	
-	var _extra1 = new FlxActionDigital(Action.EXTRA1);
-	var _extra1P = new FlxActionDigital(Action.EXTRA1_P);
-	var _extra1R = new FlxActionDigital(Action.EXTRA1_R);
-	var _rshift = new FlxActionDigital(Action.RSHIFT);
-	var _rshiftP = new FlxActionDigital(Action.RSHIFT_P);
-	var _rshiftR = new FlxActionDigital(Action.RSHIFT_R);
-	var _lshift = new FlxActionDigital(Action.LSHIFT);
-	var _lshiftP = new FlxActionDigital(Action.LSHIFT_P);
-	var _lshiftR = new FlxActionDigital(Action.LSHIFT_R);
-	var _extra4 = new FlxActionDigital(Action.EXTRA4);
-	var _extra4P = new FlxActionDigital(Action.EXTRA4_P);
-	var _extra4R = new FlxActionDigital(Action.EXTRA4_R);
+	var _q = new FlxActionDigital(Action.Q);
+	var _qP = new FlxActionDigital(Action.Q_P);
+	var _qR = new FlxActionDigital(Action.Q_R);
+	var _e = new FlxActionDigital(Action.E);
+	var _eP = new FlxActionDigital(Action.E_P);
+	var _eR = new FlxActionDigital(Action.E_R);
 
 	#if (haxe >= "4.0.0")
 	var byName:Map<String, FlxActionDigital> = [];
@@ -387,66 +368,36 @@ class Controls extends FlxActionSet
 
 	inline function get_SPACE_P()
 		return _spaceP.check();			
-		
-	public var EXTRA1(get, never):Bool;
 
-	inline function get_EXTRA1()
-		return _extra1.check();		
+	public var Q(get, never):Bool;
+
+	inline function get_Q()
+		return _q.check();		
 	
-	public var EXTRA1_R(get, never):Bool;
+	public var Q_R(get, never):Bool;
 
-	inline function get_EXTRA1_R()
-		return _extra1R.check();		
+	inline function get_Q_R()
+		return _qR.check();		
 		
-	public var EXTRA1_P(get, never):Bool;
+	public var Q_P(get, never):Bool;
 
-	inline function get_EXTRA1_P()
-		return _extra1P.check();
+	inline function get_Q_P()
+		return _qP.check();
 
-	public var RSHIFT(get, never):Bool;
+	public var E(get, never):Bool;
 
-	inline function get_RSHIFT()
-		return _rshift.check();		
+	inline function get_E()
+		return _e.check();		
 	
-	public var RSHIFT_R(get, never):Bool;
+	public var E_R(get, never):Bool;
 
-	inline function get_RSHIFT_R()
-		return _rshiftR.check();		
+	inline function get_E_R()
+		return _eR.check();		
 		
-	public var RSHIFT_P(get, never):Bool;
+	public var E_P(get, never):Bool;
 
-	inline function get_RSHIFT_P()
-		return _rshiftP.check();
-
-	public var LSHIFT(get, never):Bool;
-
-	inline function get_LSHIFT()
-		return _lshift.check();		
-	
-	public var LSHIFT_R(get, never):Bool;
-
-	inline function get_LSHIFT_R()
-		return _lshiftR.check();		
-		
-	public var LSHIFT_P(get, never):Bool;
-
-	inline function get_LSHIFT_P()
-		return _lshiftP.check();
-		
-	public var EXTRA4(get, never):Bool;
-
-	inline function get_EXTRA4()
-		return _extra4.check();		
-	
-	public var EXTRA4_R(get, never):Bool;
-
-	inline function get_EXTRA4_R()
-		return _extra4R.check();		
-		
-	public var EXTRA4_P(get, never):Bool;
-
-	inline function get_EXTRA4_P()
-		return _extra4P.check();
+	inline function get_E_P()
+		return _eP.check();
 
 	#if (haxe >= "4.0.0")
 	public function new(name, scheme = None)
@@ -487,19 +438,12 @@ class Controls extends FlxActionSet
 		add(_space);
 		add(_spaceP);
 		add(_spaceR);
-		
-		add(_extra1);
-		add(_extra1P);
-		add(_extra1R);
-		add(_rshift);
-		add(_rshiftP);
-		add(_rshiftR);
-		add(_lshift);
-		add(_lshiftP);
-		add(_lshiftR);
-		add(_extra4);
-		add(_extra4P);
-		add(_extra4R);
+		add(_q);
+		add(_qP);
+		add(_qR);
+		add(_e);
+		add(_eP);
+		add(_eR);
 		
 
 		for (action in digitalActions)
@@ -546,19 +490,12 @@ class Controls extends FlxActionSet
 		add(_space);
 		add(_spaceP);
 		add(_spaceR);
-		
-		add(_extra1);
-		add(_extra1P);
-		add(_extra1R);
-		add(_rshift);
-		add(_rshiftP);
-		add(_rshiftR);
-		add(_lshift);
-		add(_lshiftP);
-		add(_lshiftR);
-		add(_extra4);
-		add(_extra4P);
-		add(_extra4R);
+		add(_q);
+		add(_qP);
+		add(_qR);
+		add(_e);
+		add(_eP);
+		add(_eR);;
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -619,8 +556,8 @@ class Controls extends FlxActionSet
 		inline forEachBound(Control.SPACE, (action, state) -> addbuttonUI(action, Hitbox.buttonSpace, state));
 		
 		inline forEachBound(Control.EXTRA1, (action, state) -> addbuttonUI(action, Hitbox.buttonExtra1, state));
-		inline forEachBound(Control.RSHIFT, (action, state) -> addbuttonUI(action, Hitbox.buttonRshift, state));
-		inline forEachBound(Control.LSHIFT, (action, state) -> addbuttonUI(action, Hitbox.buttonLshift, state));
+		inline forEachBound(Control.Q, (action, state) -> addbuttonUI(action, Hitbox.buttonQ, state));
+		inline forEachBound(Control.E, (action, state) -> addbuttonUI(action, Hitbox.buttonE, state));
 		inline forEachBound(Control.EXTRA4, (action, state) -> addbuttonUI(action, Hitbox.buttonExtra4, state));
 	}
 	
@@ -841,12 +778,9 @@ class Controls extends FlxActionSet
 			case PAUSE: _pause;
 			case RESET: _reset;
 			case SHIFT: _shift;
-			case SPACE: _space;
-			
-			case EXTRA1: _extra1;
-			case RSHIFT: _rshift;
-			case LSHIFT: _lshift;
-			case EXTRA4: _extra4;
+			case SPACE: _space;		
+			case Q: _q;
+			case E: _e;
 		}
 	}
 
@@ -913,24 +847,15 @@ class Controls extends FlxActionSet
 			case SPACE:
 				func(_space, PRESSED);
 				func(_spaceP, JUST_PRESSED);
-				func(_spaceR, JUST_RELEASED);
-				
-			case EXTRA1:
-				func(_extra1, PRESSED);
-				func(_extra1P, JUST_PRESSED);
-				func(_extra1R, JUST_RELEASED);
-			case RSHIFT:
-				func(_rshift, PRESSED);
-				func(_rshiftP, JUST_PRESSED);
-				func(_rshiftR, JUST_RELEASED);
-			case LSHIFT:
-				func(_lshift, PRESSED);
-				func(_lshiftP, JUST_PRESSED);
-				func(_lshiftR, JUST_RELEASED);
-			case EXTRA4:
-				func(_extra4, PRESSED);
-				func(_extra4P, JUST_PRESSED);
-				func(_extra4R, JUST_RELEASED);
+				func(_spaceR, JUST_RELEASED);;
+			case Q:
+				func(_q, PRESSED);
+				func(_qP, JUST_PRESSED);
+				func(_qR, JUST_RELEASED);
+			case E:
+				func(_e, PRESSED);
+				func(_eP, JUST_PRESSED);
+				func(_eR, JUST_RELEASED);
 		}
 	}
 
