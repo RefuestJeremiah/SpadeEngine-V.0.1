@@ -148,7 +148,7 @@ class OptionsState extends MusicBeatState
 				MusicBeatState.switchState(new PlayState());
 				PauseSubState.MoveOption = false;
 			}
-			if (PlayState.MoveOption) {
+			else if (PlayState.MoveOption) {
 				MusicBeatState.switchState(new PlayState());
 				PlayState.MoveOption = false;
 			} else {
