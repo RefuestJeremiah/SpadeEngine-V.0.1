@@ -150,6 +150,7 @@ class OptionsState extends MusicBeatState
 			} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
+		    }
 		}
 
 		#if android
@@ -193,5 +194,4 @@ class OptionsState extends MusicBeatState
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
-}
 }
