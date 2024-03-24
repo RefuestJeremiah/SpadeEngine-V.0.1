@@ -40,30 +40,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 
 
-        if (ClientPrefs.hitboxmode == 'New'){
-			var option:Option = new Option('Extra Controls',
-			"Allow Extra Controls",
-			'hitboxExtend',
-			'bool',
-			true);
-		  addOption(option);
-		}
-
-        var option:Option = new Option('Extra Controls',
-			"Allow Extra Controls",
-			'hitboxExtend',
-			'bool',
-			true);
-		  addOption(option);
-		  
-		var option:Option = new Option('Extra Control Location:',
-			"Choose Extra Control Location",
-			'hitboxLocation',
-			'string',
-			'Bottom',
-			['Bottom', 'Top']);
-		  addOption(option);
-
 		var option:Option = new Option('Hitbox Mode:',
 			"Choose your Hitbox Style!  -mariomaster",
 			'hitboxmode',
@@ -110,6 +86,24 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		
+		if (ClientPrefs.hitboxmode == 'New'){
+			var option:Option = new Option('Extra Controls',
+			"Allow Extra Controls",
+			'hitboxExtend',
+			'bool',
+			true);
+		  addOption(option);
+		  
+		  var option:Option = new Option('Extra Control Location:',
+			"Choose Extra Control Location",
+			'hitboxLocation',
+			'string',
+			'Bottom',
+			['Bottom', 'Top']);
+		  addOption(option);
+		}
+		
 			#if android
 		if (FlxG.android.justReleased.BACK)
 		{
