@@ -93,11 +93,12 @@ class FPS extends TextField
 			var memoryMegas:Float = 0;
 			
 			#if openfl
-			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));;
+			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			text += "\nMemory: " + memoryMegas + " MB";
 			text += "\nOS: " + '${lime.system.System.platformLabel}';
-			text += "\nVersion: PsychEngine 0.6.3";
-            text += "\nBuild: KralOyuncu Test Build"
+            text += "\nGPU: " + '${getGLInfo(RENDERER)}';
+            text += "\nVersion: PsychEngine 0.6.3";
+            text += "\nBuild: KralOyuncu Test Build";
 			#end
 
 			textColor = 0xFFFFFFFF;
