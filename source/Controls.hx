@@ -60,12 +60,12 @@ enum abstract Action(String) to String from String
 	var EXTRA1 = 'extra1';
 	var EXTRA1_P = 'extra1-press';
 	var EXTRA1_R = 'extra1-release';
-	var EXTRA2 = 'extra2';
-	var EXTRA2_P = 'extra2-press';
-	var EXTRA2_R = 'extra2-release';
-	var EXTRA3 = 'extra3';
-	var EXTRA3_P = 'extra3-press';
-	var EXTRA3_R = 'extra3-release';
+	var RSHIFT = 'rshift';
+	var RSHIFT_P = 'rshift-press';
+	var RSHIFT_R = 'rshift-release';
+	var LSHIFT = 'lshift';
+	var LSHIFT_P = 'lshift-press';
+	var LSHIFT_R = 'lshift-release';
 	var EXTRA4 = 'extra4';
 	var EXTRA4_P = 'extra4-press';
 	var EXTRA4_R = 'extra4-release';
@@ -106,9 +106,9 @@ abstract Action(String) to String from String
 	var SPACE = 'space';
 	
 	var EXTRA1 = 'extra1';
-	var EXTRA2 = 'extra2';
-	var EXTRA3 = 'extra3';
-	var EXTRA3 = 'extra4';
+	var RSHIFT = 'rshift';
+	var LSHIFT = 'lshift';
+	var LSHIFT = 'extra4';
 	
 }
 #end
@@ -142,8 +142,8 @@ enum Control
 	SPACE;
 	
 	EXTRA1;
-	EXTRA2;
-	EXTRA3;
+	RSHIFT;
+	LSHIFT;
 	EXTRA4;
 }
 
@@ -199,12 +199,12 @@ class Controls extends FlxActionSet
 	var _extra1 = new FlxActionDigital(Action.EXTRA1);
 	var _extra1P = new FlxActionDigital(Action.EXTRA1_P);
 	var _extra1R = new FlxActionDigital(Action.EXTRA1_R);
-	var _extra2 = new FlxActionDigital(Action.EXTRA2);
-	var _extra2P = new FlxActionDigital(Action.EXTRA2_P);
-	var _extra2R = new FlxActionDigital(Action.EXTRA2_R);
-	var _extra3 = new FlxActionDigital(Action.EXTRA3);
-	var _extra3P = new FlxActionDigital(Action.EXTRA3_P);
-	var _extra3R = new FlxActionDigital(Action.EXTRA3_R);
+	var _rshift = new FlxActionDigital(Action.RSHIFT);
+	var _rshiftP = new FlxActionDigital(Action.RSHIFT_P);
+	var _rshiftR = new FlxActionDigital(Action.RSHIFT_R);
+	var _lshift = new FlxActionDigital(Action.LSHIFT);
+	var _lshiftP = new FlxActionDigital(Action.LSHIFT_P);
+	var _lshiftR = new FlxActionDigital(Action.LSHIFT_R);
 	var _extra4 = new FlxActionDigital(Action.EXTRA4);
 	var _extra4P = new FlxActionDigital(Action.EXTRA4_P);
 	var _extra4R = new FlxActionDigital(Action.EXTRA4_R);
@@ -403,35 +403,35 @@ class Controls extends FlxActionSet
 	inline function get_EXTRA1_P()
 		return _extra1P.check();
 
-	public var EXTRA2(get, never):Bool;
+	public var RSHIFT(get, never):Bool;
 
-	inline function get_EXTRA2()
-		return _extra2.check();		
+	inline function get_RSHIFT()
+		return _rshift.check();		
 	
-	public var EXTRA2_R(get, never):Bool;
+	public var RSHIFT_R(get, never):Bool;
 
-	inline function get_EXTRA2_R()
-		return _extra2R.check();		
+	inline function get_RSHIFT_R()
+		return _rshiftR.check();		
 		
-	public var EXTRA2_P(get, never):Bool;
+	public var RSHIFT_P(get, never):Bool;
 
-	inline function get_EXTRA2_P()
-		return _extra2P.check();
+	inline function get_RSHIFT_P()
+		return _rshiftP.check();
 
-	public var EXTRA3(get, never):Bool;
+	public var LSHIFT(get, never):Bool;
 
-	inline function get_EXTRA3()
-		return _extra3.check();		
+	inline function get_LSHIFT()
+		return _lshift.check();		
 	
-	public var EXTRA3_R(get, never):Bool;
+	public var LSHIFT_R(get, never):Bool;
 
-	inline function get_EXTRA3_R()
-		return _extra3R.check();		
+	inline function get_LSHIFT_R()
+		return _lshiftR.check();		
 		
-	public var EXTRA3_P(get, never):Bool;
+	public var LSHIFT_P(get, never):Bool;
 
-	inline function get_EXTRA3_P()
-		return _extra3P.check();
+	inline function get_LSHIFT_P()
+		return _lshiftP.check();
 		
 	public var EXTRA4(get, never):Bool;
 
@@ -491,12 +491,12 @@ class Controls extends FlxActionSet
 		add(_extra1);
 		add(_extra1P);
 		add(_extra1R);
-		add(_extra2);
-		add(_extra2P);
-		add(_extra2R);
-		add(_extra3);
-		add(_extra3P);
-		add(_extra3R);
+		add(_rshift);
+		add(_rshiftP);
+		add(_rshiftR);
+		add(_lshift);
+		add(_lshiftP);
+		add(_lshiftR);
 		add(_extra4);
 		add(_extra4P);
 		add(_extra4R);
@@ -550,12 +550,12 @@ class Controls extends FlxActionSet
 		add(_extra1);
 		add(_extra1P);
 		add(_extra1R);
-		add(_extra2);
-		add(_extra2P);
-		add(_extra2R);
-		add(_extra3);
-		add(_extra3P);
-		add(_extra3R);
+		add(_rshift);
+		add(_rshiftP);
+		add(_rshiftR);
+		add(_lshift);
+		add(_lshiftP);
+		add(_lshiftR);
 		add(_extra4);
 		add(_extra4P);
 		add(_extra4R);
@@ -619,8 +619,8 @@ class Controls extends FlxActionSet
 		inline forEachBound(Control.SPACE, (action, state) -> addbuttonUI(action, Hitbox.buttonSpace, state));
 		
 		inline forEachBound(Control.EXTRA1, (action, state) -> addbuttonUI(action, Hitbox.buttonExtra1, state));
-		inline forEachBound(Control.EXTRA2, (action, state) -> addbuttonUI(action, Hitbox.buttonExtra2, state));
-		inline forEachBound(Control.EXTRA3, (action, state) -> addbuttonUI(action, Hitbox.buttonExtra3, state));
+		inline forEachBound(Control.RSHIFT, (action, state) -> addbuttonUI(action, Hitbox.buttonRshift, state));
+		inline forEachBound(Control.LSHIFT, (action, state) -> addbuttonUI(action, Hitbox.buttonLshift, state));
 		inline forEachBound(Control.EXTRA4, (action, state) -> addbuttonUI(action, Hitbox.buttonExtra4, state));
 	}
 	
@@ -844,8 +844,8 @@ class Controls extends FlxActionSet
 			case SPACE: _space;
 			
 			case EXTRA1: _extra1;
-			case EXTRA2: _extra2;
-			case EXTRA3: _extra3;
+			case RSHIFT: _rshift;
+			case LSHIFT: _lshift;
 			case EXTRA4: _extra4;
 		}
 	}
@@ -919,14 +919,14 @@ class Controls extends FlxActionSet
 				func(_extra1, PRESSED);
 				func(_extra1P, JUST_PRESSED);
 				func(_extra1R, JUST_RELEASED);
-			case EXTRA2:
-				func(_extra2, PRESSED);
-				func(_extra2P, JUST_PRESSED);
-				func(_extra2R, JUST_RELEASED);
-			case EXTRA3:
-				func(_extra3, PRESSED);
-				func(_extra3P, JUST_PRESSED);
-				func(_extra3R, JUST_RELEASED);
+			case RSHIFT:
+				func(_rshift, PRESSED);
+				func(_rshiftP, JUST_PRESSED);
+				func(_rshiftR, JUST_RELEASED);
+			case LSHIFT:
+				func(_lshift, PRESSED);
+				func(_lshiftP, JUST_PRESSED);
+				func(_lshiftR, JUST_RELEASED);
 			case EXTRA4:
 				func(_extra4, PRESSED);
 				func(_extra4P, JUST_PRESSED);

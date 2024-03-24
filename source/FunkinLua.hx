@@ -1509,10 +1509,10 @@ class FunkinLua {
 				case 'shift': key = (PlayState.instance.getControl('SHIFT_R') || FlxG.keys.justReleased.SHIFT);//an extra key for convinience
 				case 'space': key = (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);//an extra key for convinience
 				
-				case 'extra1': key = (PlayState.instance.getControl('EXTRA1_R') || FlxG.keys.justReleased.SHIFT);//an extra key for convinience
-				case 'extra2': key = (PlayState.instance.getControl('EXTRA2_R') || FlxG.keys.justReleased.Q);//an extra key for convinience
-				case 'extra3': key = (PlayState.instance.getControl('EXTRA3_R') || FlxG.keys.justReleased.E);//an extra key for convinience
-				case 'extra4': key = (PlayState.instance.getControl('EXTRA4_R') || FlxG.keys.justReleased.SPACE);//an extra key for convinience
+				case 'extra1': key = (PlayState.instance.getControl('SHIFT_R') || FlxG.keys.justReleased.SHIFT);//an extra key for convinience
+				case 'extra2': key = (PlayState.instance.getControl('RSHIFT_R') || FlxG.keys.justReleased.RSHIFT);//an extra key for convinience
+				case 'extra3': key = (PlayState.instance.getControl('LSHIFT_R') || FlxG.keys.justReleased.LSHIFT);//an extra key for convinience
+				case 'extra4': key = (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);//an extra key for convinience
 			}
 			return key;
 		});
