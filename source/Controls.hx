@@ -51,6 +51,12 @@ enum abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+	var SHIFT = 'shift';
+	var SHIFT_P = 'shift-press';
+	var SHIFT_R = 'shift-release';
+	var SPACE = 'space';
+	var SPACE_P = 'space-press';
+	var SPACE_R = 'space-release';
 }
 #else
 @:enum
@@ -84,6 +90,8 @@ abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+	var SHIFT = 'shift';
+	var SPACE = 'space';
 }
 #end
 
@@ -112,6 +120,8 @@ enum Control
 	ACCEPT;
 	BACK;
 	PAUSE;
+	SHIFT;
+	SPACE;
 }
 
 enum KeyboardScheme
@@ -156,6 +166,12 @@ class Controls extends FlxActionSet
 	var _back = new FlxActionDigital(Action.BACK);
 	var _pause = new FlxActionDigital(Action.PAUSE);
 	var _reset = new FlxActionDigital(Action.RESET);
+	var _shift = new FlxActionDigital(Action.SHIFT);
+	var _shiftP = new FlxActionDigital(Action.SHIFT_P);
+	var _shiftR = new FlxActionDigital(Action.SHIFT_R);
+	var _space = new FlxActionDigital(Action.SPACE);
+	var _spaceP = new FlxActionDigital(Action.SPACE_P);
+	var _spaceR = new FlxActionDigital(Action.SPACE_R);
 
 	#if (haxe >= "4.0.0")
 	var byName:Map<String, FlxActionDigital> = [];
@@ -305,6 +321,36 @@ class Controls extends FlxActionSet
 
 	inline function get_RESET()
 		return _reset.check();
+		
+	public var SHIFT(get, never):Bool;
+
+	inline function get_SHIFT()
+		return _shift.check();		
+	
+	public var SHIFT_R(get, never):Bool;
+
+	inline function get_SHIFT_R()
+		return _shiftR.check();		
+		
+	public var SHIFT_P(get, never):Bool;
+
+	inline function get_SHIFT_P()
+		return _shiftP.check();
+	
+	public var SPACE(get, never):Bool;
+
+	inline function get_SPACE()
+		return _space.check();		
+	
+	public var SPACE_R(get, never):Bool;
+
+	inline function get_SPACE_R()
+		return _spaceR.check();		
+		
+	public var SPACE_P(get, never):Bool;
+
+	inline function get_SPACE_P()
+		return _spaceP.check();			
 
 	#if (haxe >= "4.0.0")
 	public function new(name, scheme = None)
@@ -339,6 +385,12 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+		add(_shift);
+		add(_shiftP);
+		add(_shiftR);
+		add(_space);
+		add(_spaceP);
+		add(_spaceR);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -378,6 +430,12 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+		add(_shift);
+		add(_shiftP);
+		add(_shiftR);
+		add(_space);
+		add(_spaceP);
+		add(_spaceR);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -428,6 +486,8 @@ class Controls extends FlxActionSet
 		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addButtonNOTES(action, Hitbox.buttonDown, state));
 		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addButtonNOTES(action, Hitbox.buttonLeft, state));
 		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addButtonNOTES(action, Hitbox.buttonRight, state));
+		inline forEachBound(Control.SHIFT, (action, state) -> addbuttonUI(action, Hitbox.buttonShift, state));
+		inline forEachBound(Control.SPACE, (action, state) -> addbuttonUI(action, Hitbox.buttonSpace, state));
 	}
 	
 	public function setVirtualPadUI(virtualPad:FlxVirtualPad, ?DPad:FlxDPadMode, ?Action:FlxActionMode) 
@@ -626,6 +686,8 @@ class Controls extends FlxActionSet
 			case BACK: _back;
 			case PAUSE: _pause;
 			case RESET: _reset;
+			case SHIFT: _shift;
+			case SPACE: _space;
 		}
 	}
 
@@ -685,6 +747,14 @@ class Controls extends FlxActionSet
 				func(_pause, JUST_PRESSED);
 			case RESET:
 				func(_reset, JUST_PRESSED);
+			case SHIFT:
+				func(_shift, PRESSED);
+				func(_shiftP, JUST_PRESSED);
+				func(_shiftR, JUST_RELEASED);
+			case SPACE:
+				func(_space, PRESSED);
+				func(_spaceP, JUST_PRESSED);
+				func(_spaceR, JUST_RELEASED);
 		}
 	}
 

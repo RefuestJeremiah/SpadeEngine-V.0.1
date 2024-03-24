@@ -35,6 +35,8 @@ class ClientPrefs {
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
 	public static var hitboxmode:String = 'Classic';  //starting new way to change between hitboxes yay
+	public static var hitboxExtend = true;
+	public static var hitboxLocation:String = 'Top';
 	public static var hitboxalpha:Float = 0.2; //someone request this lol
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -135,6 +137,8 @@ class ClientPrefs {
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
 		
+		FlxG.save.data.hitboxExtend = hitboxExtend;
+	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 	
@@ -252,6 +256,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hitboxmode != null) {
 			hitboxmode = FlxG.save.data.hitboxmode;
+		}
+		if(FlxG.save.data.hitboxLocation != null) {
+			hitboxLocation = FlxG.save.data.hitboxLocation;
+		}
+		if(FlxG.save.data.hitboxExtend != null) {
+			hitboxExtend = FlxG.save.data.hitboxExtend;
 		}
 		if(FlxG.save.data.hitboxalpha != null) {
 			hitboxalpha = FlxG.save.data.hitboxalpha;
