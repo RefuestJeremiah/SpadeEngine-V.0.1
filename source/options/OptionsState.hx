@@ -147,6 +147,7 @@ class OptionsState extends MusicBeatState
 	     	if (PauseSubState.MoveOption or PlayState.MoveOption) {
 				MusicBeatState.switchState(new PlayState());
 				PlayState.MoveOption = false;
+				PauseSubState.MoveOption = false;
 			} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
