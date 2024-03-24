@@ -922,11 +922,11 @@ class Controls extends FlxActionSet
 			case EXTRA2:
 				func(_extra2, PRESSED);
 				func(_extra2P, JUST_PRESSED);
-				func(_extra32R, JUST_RELEASED);
+				func(_extra2R, JUST_RELEASED);
 			case EXTRA3:
 				func(_extra3, PRESSED);
 				func(_extra3P, JUST_PRESSED);
-				func(_extra43R, JUST_RELEASED);
+				func(_extra3R, JUST_RELEASED);
 			case EXTRA4:
 				func(_extra4, PRESSED);
 				func(_extra4P, JUST_PRESSED);
