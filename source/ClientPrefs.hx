@@ -35,8 +35,10 @@ class ClientPrefs {
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
-	// public static var hitboxExtend:Int = 0 bro what
-	// public static var hitboxExtend = true bro what
+	#if disabled
+	public static var hitboxExtend:Int = 0;
+	public static var hitboxExtend = true;
+	#end
 	public static var shiftExtend = true;
 	public static var spaceExtend = true;
 	public static var maxExtend = true;
