@@ -32,6 +32,8 @@ class MusicBeatState extends FlxUIState
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
+	
+	private var checkHitbox:Bool = false;
 
 	public static var camBeat:FlxCamera;
 
@@ -70,13 +72,16 @@ class MusicBeatState extends FlxUIState
 		{
 			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
 				controls.setVirtualPadNOTES(androidc.vpad, FULL, NONE);
+				checkHitbox = false;
 			case DUO:
 				controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
+				checkHitbox = false;
 			case HITBOX:
-			   if(ClientPrefs.hitboxmode != 'New'){
-				controls.setHitBox(androidc.hbox);
-				}else{
+			   if(ClientPrefs.hitboxmode != 'Classic'){
 				controls.setNewHitBox(androidc.newhbox);
+				checkHitbox = true;
+				}else{
+				controls.setHitBox(androidc.hbox);
 				}
 			default:
 		}
