@@ -35,7 +35,11 @@ class ClientPrefs {
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
-	public static var hitboxExtend:Int = 0;
+	//public static var hitboxExtend:Int = 0;
+	//public static var hitboxExtend = true;
+	public static var shiftExtend = true;
+	public static var spaceExtend = true;
+	public static var maxExtend = true;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.2; //someone request this lol
 	public static var VirtualPadAlpha:Float = 0.75;

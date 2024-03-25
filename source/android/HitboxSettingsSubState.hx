@@ -32,6 +32,8 @@ import openfl.Lib;
 
 using StringTools;
 
+//I'm learning how to work android controls
+
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
 	public function new()
@@ -39,7 +41,28 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		title = 'Hitbox Settings';
 		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 
-
+        var option:Option = new Option('Shift Extend',
+			"Allow Shift Button",
+			'shiftExtend',
+			'bool',
+			true);
+		  addOption(option);
+		  
+		var option:Option = new Option('Space Extend',
+			"Allow Space Button",
+			'spaceExtend',
+			'bool',
+			true);
+		  addOption(option);
+		  
+		var option:Option = new Option('Max Extend',
+			"Allow Maximum Controls",
+			'maxExtend',
+			'bool',
+			false);
+		  addOption(option);
+		  
+        #if experiment //just I disable it becuase very very buggy
         var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
 			'hitboxExtend',
@@ -51,6 +74,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 1;
 		option.decimals = 1;
 		addOption(option);
+		#end
 		  
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
@@ -64,7 +88,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			"Choose your Hitbox Style!  -mariomaster",
 			'hitboxmode',
 			'string',
-			'Classic',
+			'New',
 			['Classic', 'New']);
 		  addOption(option);
 		  
