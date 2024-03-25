@@ -60,10 +60,10 @@ class FlxNewHitbox extends FlxSpriteGroup
                     add(buttonSpace = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
 		        else if (!ClientPrefs.spaceExtend && ClientPrefs.shiftExtend)
                     add(buttonShift = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFF0000));
-                else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend){    
+                else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend)    
                     add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
-                else if (!ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && ClientPrefs.maxExtend)
+                else if (!ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && ClientPrefs.maxExtend){
                     add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
                     add(buttonQ = createHint(FlxG.width / 4, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
                     add(buttonE = createHint(FlxG.width / 4 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));      
@@ -80,10 +80,10 @@ class FlxNewHitbox extends FlxSpriteGroup
                     add(buttonSpace = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
 		        else if (!ClientPrefs.spaceExtend && ClientPrefs.shiftExtend)
                     add(buttonShift = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFF0000));
-                else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend){
+                else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend)
                     add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));		    
-                else if (!ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && ClientPrefs.maxExtend)
+                else if (!ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && ClientPrefs.maxExtend){
                     add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
                     add(buttonQ = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFF0000));
                     add(buttonE = createHint(FlxG.width / 4 * 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x0000FF));      
