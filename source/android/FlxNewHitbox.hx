@@ -100,7 +100,7 @@ class FlxNewHitbox extends FlxSpriteGroup
                 else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend){
                     add(buttonShift = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 5 * 2, FlxG.height / 2, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));	    
-		    
+	     	    }
 		    }
 		}
 		
