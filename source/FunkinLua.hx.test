@@ -1537,7 +1537,7 @@ class FunkinLua {
 			return true;
 		});
 		Lua_helper.add_callback(lua, "endSong", function() {
-			//PlayState.instance.KillNotes();
+			PlayState.instance.KillNotes();
 			PlayState.instance.endSong();
 			return true;
 		});
@@ -2298,39 +2298,12 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "debugPrint", function(text1:Dynamic = '', text2:Dynamic = '', text3:Dynamic = '', text4:Dynamic = '', text5:Dynamic = '') {
-		
-		    var showcase:Int = 6;
-		
-			
-			if (text5 == null) {text5 = ''; showcase = 5;}			
-			if (text4 == null) {text4 = ''; showcase = 4;}			
-			if (text3 == null) {text3 = ''; showcase = 3;}            
-			if (text2 == null) {text2 = ''; showcase = 2;}
-			if (text1 == null) {text1 = ''; showcase = 1;}
-			
-			//if (text5 != '') luaTrace('date1:' + text1 + ' date2:' + text2 + ' date3:' + text3 + ' date4:' + text4 +' date5:' + text5, true, false);		
-			if (text5 == '') showcase = 5;
-			if (text4 == '') showcase = 4;
-			if (text3 == '') showcase = 2;
-			if (text2 == '') showcase = 2;
-			if (text1 == '') showcase = 1;
-			
-			switch (showcase)   {				    
-								
-				case 1 :
-					//nothing happened
-				case 2 :
-					luaTrace('date1:' + text1, true, false);
-				case 3 :
-					luaTrace('date1:' + text1 + ' date2:' + text2, true, false);
-				case 4 :
-					luaTrace('date1:' + text1 + ' date2:' + text2 + ' date3:' + text3, true, false);
-				case 5 :
-					luaTrace('date1:' + text1 + ' date2:' + text2 + ' date3:' + text3 + ' date4:' + text4, true, false);
-				case 6 :
-					luaTrace('date1:' + text1 + ' date2:' + text2 + ' date3:' + text3 + ' date4:' + text4 +' date5:' + text5, true, false);	
-			}
-								
+			if (text1 == null) text1 = '';
+			if (text2 == null) text2 = '';
+			if (text3 == null) text3 = '';
+			if (text4 == null) text4 = '';
+			if (text5 == null) text5 = '';
+			luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
 		});
 		
 		Lua_helper.add_callback(lua, "close", function() {
@@ -2908,23 +2881,26 @@ class FunkinLua {
 	}
 	#end
 	
-	public function initLuaShader(name:String)
+	function initLuaShader(name:String)
 	{
 		if(!ClientPrefs.shaders) return false;
 
+		#if (!flash && sys)
 		if(PlayState.instance.runtimeShaders.exists(name))
 		{
-			FlxG.log.warn('Shader $name was already initialized!');
+			luaTrace('Shader $name was already initialized!');
 			return true;
 		}
 
-		var foldersToCheck:Array<String> = [Paths.mods('shaders/')];
+		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('shaders/')];
+
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+
 			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
 
 		for(mod in Paths.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
-
+		
 		for (folder in foldersToCheck)
 		{
 			if(FileSystem.exists(folder))
@@ -2939,7 +2915,7 @@ class FunkinLua {
 				}
 				else frag = null;
 
-				if (FileSystem.exists(vert))
+				if(FileSystem.exists(vert))
 				{
 					vert = File.getContent(vert);
 					found = true;
@@ -2949,12 +2925,15 @@ class FunkinLua {
 				if(found)
 				{
 					PlayState.instance.runtimeShaders.set(name, [frag, vert]);
-					//trace('Finally Found shader $name!');
+					//trace('Found shader $name!');
 					return true;
 				}
 			}
 		}
-		FlxG.log.warn('Missing shader $name .frag AND .vert files!');
+		luaTrace('Missing shader $name .frag AND .vert files!', false, false, FlxColor.RED);
+		#else
+		luaTrace('This platform doesn\'t support Runtime Shaders!', false, false, FlxColor.RED);
+		#end
 		return false;
 	}
 
