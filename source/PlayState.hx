@@ -415,6 +415,7 @@ class PlayState extends MusicBeatState
 		addAndroidControls();
 		androidc.visible = true;
 		androidc.alpha = 0.000001;
+		#end
 
 		persistentUpdate = true;
 		persistentDraw = true;
