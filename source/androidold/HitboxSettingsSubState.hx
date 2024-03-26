@@ -32,6 +32,8 @@ import openfl.Lib;
 
 using StringTools;
 
+//I'm learning how to work android controls
+
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
 	public function new()
@@ -39,7 +41,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		title = 'Hitbox Settings';
 		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 
-		var option:Option = new Option('Shift Extend',
+        var option:Option = new Option('Shift Extend',
 			"Allow Shift Button",
 			'shiftExtend',
 			'bool',
@@ -128,6 +130,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		
 			#if android
 		if (FlxG.android.justReleased.BACK)
 		{

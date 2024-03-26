@@ -7,11 +7,24 @@ import openfl.display.Shape;
 import android.flixel.FlxButton;
 
 /**
- * A zone with 4 hint's (A hitbox).
+ * A zone with 2 hint's (A hitbox).
  * It's really easy to customize the layout.
  *
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
+ 
+ /*
+    space/shift extend made by NF|beihu (北狐丶逐梦)
+    youtube: https://b23.tv/SnqG443
+    bilbil: https://youtube.com/@beihu235?si=NHnWxcUWPS46EqUt
+    discord: beihu235
+    
+    you can use it but must give me credit(dont forget my icon)
+    
+    space use keyPressed('space') or getPropertyFromClass('flixel.FlxG','keys.pressed.SPACE') in funkinLua
+    shift use getPropertyFromClass('flixel.FlxG','keys.pressed.SHIFT') in funkinLua
+*/
+
 class FlxNewHitbox extends FlxSpriteGroup
 {
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
@@ -23,7 +36,6 @@ class FlxNewHitbox extends FlxSpriteGroup
     public var buttonShift:FlxButton = new FlxButton(0, 0);
     public var buttonQ:FlxButton = new FlxButton(0, 0);
     public var buttonE:FlxButton = new FlxButton(0, 0);
-    
 	/**
 	 * Create the zone.
 	 */
@@ -100,7 +112,7 @@ class FlxNewHitbox extends FlxSpriteGroup
                 else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend){
                     add(buttonShift = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 5 * 2, FlxG.height / 2, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));	    
-		    
+		        }
 		    }
 		}
 		
