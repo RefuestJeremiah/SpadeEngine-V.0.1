@@ -35,11 +35,7 @@ class ClientPrefs {
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
-	//public static var hitboxExtend:Int = 0;
-	//public static var hitboxExtend = true;
-	public static var shiftExtend = true;
-	public static var spaceExtend = true;
-	public static var maxExtend = true;
+	public static var hitboxExtend:Int = 0;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.2; //someone request this lol
 	public static var VirtualPadAlpha:Float = 0.75;
@@ -142,10 +138,7 @@ class ClientPrefs {
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
 		
-		//FlxG.save.data.hitboxExtend = hitboxExtend;
-		FlxG.save.data.shiftExtend = shiftExtend;
-		FlxG.save.data.spaceExtend = spaceExtend;
-		FlxG.save.data.maxExtend = maxExtend;
+		FlxG.save.data.hitboxExtend = hitboxExtend;
 	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
@@ -269,17 +262,8 @@ class ClientPrefs {
 		if(FlxG.save.data.hitboxLocation != null) {
 			hitboxLocation = FlxG.save.data.hitboxLocation;
 		}
-		//if(FlxG.save.data.hitboxExtend != null) {
-			//hitboxExtend = FlxG.save.data.hitboxExtend;
-		//}
-				if(FlxG.save.data.shiftExtend != null) {
-			shiftExtend = FlxG.save.data.shiftExtend;
-		}
-				if(FlxG.save.data.spaceExtend != null) {
-			spaceExtend = FlxG.save.data.spaceExtend;
-		}
-				if(FlxG.save.data.maxExtend != null) {
-			maxExtend = FlxG.save.data.maxExtend;
+		if(FlxG.save.data.hitboxExtend != null) {
+			hitboxExtend = FlxG.save.data.hitboxExtend;
 		}
 		if(FlxG.save.data.hitboxalpha != null) {
 			hitboxalpha = FlxG.save.data.hitboxalpha;
