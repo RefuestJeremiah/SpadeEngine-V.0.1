@@ -1071,13 +1071,6 @@ class PlayState extends MusicBeatState
 		add(timeBar);
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
-		if (ClientPrefs.gradientTimeBar) {
-		var wawa = [];
-        for (i in dad.healthColorArray) wawa.push(StringTools.hex(i, 2));
-        var wawa2 = [];
-        for (i in boyfriend.healthColorArray) wawa2.push(StringTools.hex(i, 2));
-        timeBar.createGradientBar([0x0], [Std.parseInt('0xFF' + wawa2.join('')), Std.parseInt('0xFF' + wawa.join(''))]);
-        }
         
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
@@ -2668,13 +2661,7 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
-				if (ClientPrefs.gradientTimeBar) {
-				var wawa = [];
-                for (i in dad.healthColorArray) wawa.push(StringTools.hex(i, 2));
-                var wawa2 = [];
-                for (i in boyfriend.healthColorArray) wawa2.push(StringTools.hex(i, 2));
-                timeBar.createGradientBar([0x0], [Std.parseInt('0xFF' + wawa2.join('')), Std.parseInt('0xFF' + wawa.join(''))]);
-                }
+
 			case 'Dadbattle Spotlight':
 				dadbattleBlack = new BGSprite(null, -800, -400, 0, 0);
 				dadbattleBlack.makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
@@ -3923,13 +3910,6 @@ class PlayState extends MusicBeatState
 						}
 				}
 				reloadHealthBarColors();
-				if (ClientPrefs.gradientTimeBar) {
-			    var wawa = [];
-                for (i in dad.healthColorArray) wawa.push(StringTools.hex(i, 2));
-                var wawa2 = [];
-                for (i in boyfriend.healthColorArray) wawa2.push(StringTools.hex(i, 2));
-                timeBar.createGradientBar([0x0], [Std.parseInt('0xFF' + wawa2.join('')), Std.parseInt('0xFF' + wawa.join(''))]);	
-                }
                 
 			case 'BG Freaks Expression':
 				if(bgGirls != null) bgGirls.swapDanceType();
@@ -4710,8 +4690,6 @@ class PlayState extends MusicBeatState
 		if(daNote.gfNote) {
 			char = gf;
 		}
-		
-		if (ClientPrefs.misssoundVolume != 0) FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), ClientPrefs.misssoundVolume);
 
 		if(char != null && !daNote.noMissAnimation && char.hasMissAnimations)
 		{
@@ -4748,7 +4726,7 @@ class PlayState extends MusicBeatState
 			totalPlayed++;
 			RecalculateRating(true);
 
-			if (ClientPrefs.misssoundVolume != 0) FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), ClientPrefs.misssoundVolume);
+			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
 
