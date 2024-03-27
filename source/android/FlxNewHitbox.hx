@@ -7,112 +7,80 @@ import openfl.display.Shape;
 import android.flixel.FlxButton;
 
 /**
- * A zone with 2 hint's (A hitbox).
+ * A zone with 4 hint's (A hitbox).
  * It's really easy to customize the layout.
  *
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
- 
- /*
-    space/shift extend made by NF|beihu (北狐丶逐梦)
-    youtube: https://b23.tv/SnqG443
-    bilbil: https://youtube.com/@beihu235?si=NHnWxcUWPS46EqUt
-    discord: beihu235
-    
-    you can use it but must give me credit(dont forget my icon)
-    
-    space use keyPressed('space') or getPropertyFromClass('flixel.FlxG','keys.pressed.SPACE') in funkinLua
-    shift use getPropertyFromClass('flixel.FlxG','keys.pressed.SHIFT') in funkinLua
-*/
-
 class FlxNewHitbox extends FlxSpriteGroup
 {
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonDown:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
 	public var buttonRight:FlxButton = new FlxButton(0, 0);
-    
+	
+	public var buttonShift:FlxButton = new FlxButton(0, 0);
     public var buttonSpace:FlxButton = new FlxButton(0, 0);
-    public var buttonShift:FlxButton = new FlxButton(0, 0);
     public var buttonQ:FlxButton = new FlxButton(0, 0);
-    public var buttonE:FlxButton = new FlxButton(0, 0);
+	public var buttonE:FlxButton = new FlxButton(0, 0);
+
 	/**
 	 * Create the zone.
 	 */
 	public function new():Void
 	{
 		super();
-        if (!ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && !ClientPrefs.maxExtend){
-            add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FF));
-		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0x00FFFF));
-		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0x00FF00));
-		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF0000));
-        }
-        else{
+		    if (ClientPrefs.hitboxExtend == 0){
+            add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFC24B99));
+		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
+		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
+		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
+        }else{
             if (ClientPrefs.hitboxLocation == 'Bottom'){
-        
-		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FF));
-		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0x00FFFF));
-		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0x00FF00));
-		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF0000));
-
-		        if (ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && !ClientPrefs.maxExtend){
-                    add(buttonSpace = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
-                    }
-		        else if (!ClientPrefs.spaceExtend && ClientPrefs.shiftExtend && !ClientPrefs.maxExtend){
-                    add(buttonShift = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFF0000));
-                    }
-                else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend && !ClientPrefs.maxExtend){
-                    add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
-                    add(buttonSpace = createHint(FlxG.width / 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
-                    }
-                else if (!ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && ClientPrefs.maxExtend){
-                    add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
-                    add(buttonQ = createHint(FlxG.width / 4, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
-                    add(buttonE = createHint(FlxG.width / 4 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));      
-                    add(buttonSpace = createHint(FlxG.width / 4 * 3, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
+		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
+		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
+		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
+		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
+                
+                switch (ClientPrefs.hitboxExtend){
+					case 1:		        
+                        add(buttonSpace = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
+		            case 2:                
+                        add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonSpace = createHint(FlxG.width / 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                    case 3:		        
+                        add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonQ = createHint(FlxG.width / 3 - 1, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3 + 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonSpace = createHint(FlxG.width / 3 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFFFF00));
+		            case 4:                                  
+		                add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonQ = createHint(FlxG.width / 4, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonE = createHint(FlxG.width / 4 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));      
+                        add(buttonSpace = createHint(FlxG.width / 4 * 3, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));      
                 }
-		    }
-		    else if (ClientPrefs.hitboxLocation == 'Top'){
-		        add(buttonLeft = createHint(0, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FF));
-		        add(buttonDown = createHint(FlxG.width / 4, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0x00FFFF));
-		        add(buttonUp = createHint(FlxG.width / 2, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0x00FF00));
-		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF0000));
+		    }else{  // Top
+		        add(buttonLeft = createHint(0, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
+		        add(buttonDown = createHint(FlxG.width / 4, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
+		        add(buttonUp = createHint(FlxG.width / 2, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
+		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
  
-                if (ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && !ClientPrefs.maxExtend){
-                    add(buttonSpace = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
-                    }
-		        else if (!ClientPrefs.spaceExtend && ClientPrefs.shiftExtend && !ClientPrefs.maxExtend){
-                    add(buttonShift = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFF0000));
-                    }
-                else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend && !ClientPrefs.maxExtend){
-                    add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
-                    add(buttonSpace = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));		    
-                    }
-                else if (!ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend && ClientPrefs.maxExtend){
-                    add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
-                    add(buttonQ = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFF0000));
-                    add(buttonE = createHint(FlxG.width / 4 * 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x0000FF));      
-                    add(buttonSpace = createHint(FlxG.width / 4 * 3, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x00FF00));
-		        }
-		    }
+                switch (ClientPrefs.hitboxExtend){
+					case 1:		        
+                        add(buttonSpace = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
+		            case 2:                
+                        add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonSpace = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
+                    case 3:		        
+                        add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonQ = createHint(FlxG.width / 3, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonSpace = createHint(FlxG.width / 3 * 2, 0, Std.int(FlxG.width / 3), Std.int(FlxG.height / 5), 0x0000FF));
+		            case 4:                                  
+		                add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));
+                        add(buttonQ = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFF0000));
+                        add(buttonE = createHint(FlxG.width / 4 * 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x0000FF));      
+                        add(buttonSpace = createHint(FlxG.width / 4 * 3, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x00FF00));
+                }
 		    
-		    else{ //middle
-		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFF00FF));
-		        add(buttonDown = createHint(FlxG.width / 5 * 1, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0x00FFFF));
-		        add(buttonUp = createHint(FlxG.width / 5 * 3, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0x00FF00));
-		        add(buttonRight = createHint(FlxG.width / 5 * 4 , 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFF0000));
-
-                if (ClientPrefs.spaceExtend && !ClientPrefs.shiftExtend){
-                    add(buttonSpace = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFFFF00));
-                    }
-		        else if (!ClientPrefs.spaceExtend && ClientPrefs.shiftExtend){
-                    add(buttonShift = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFF0000));
-                    }
-                else if (ClientPrefs.spaceExtend && ClientPrefs.shiftExtend){
-                    add(buttonShift = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFF0000));
-                    add(buttonSpace = createHint(FlxG.width / 5 * 2, FlxG.height / 2, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));	    
-		        }
 		    }
 		}
 		
@@ -132,9 +100,9 @@ class FlxNewHitbox extends FlxSpriteGroup
 		buttonRight = null;
 		
 		buttonShift = null;
+		buttonSpace = null;
 		buttonQ = null;
 		buttonE = null;
-		buttonSpace = null;
 	}
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
