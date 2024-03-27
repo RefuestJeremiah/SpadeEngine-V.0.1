@@ -64,8 +64,6 @@ class MusicBeatState extends FlxUIState
 	}
 	#end
 
-    
-
 	#if android
 	public function addAndroidControls() {
 		androidc = new AndroidControls();
@@ -79,16 +77,18 @@ class MusicBeatState extends FlxUIState
 				controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
 				checkHitbox = false;
 			case HITBOX:
+			   if(ClientPrefs.hitboxmode != 'Classic'){
 				controls.setNewHitBox(androidc.newhbox);
 				checkHitbox = true;
+				}else{
+				controls.setHitBox(androidc.hbox);
+				}
 			default:
 		}
 
 		trackedinputsNOTES = controls.trackedinputsNOTES;
-		trackedinputsUI = controls.trackedinputsUI;
 		controls.trackedinputsNOTES = [];
-        controls.trackedinputsUI = [];
-        
+
 		var camcontrol = new flixel.FlxCamera();
 		FlxG.cameras.add(camcontrol, false);
 		camcontrol.bgColor.alpha = 0;
