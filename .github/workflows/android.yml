@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   build32:
-    name: buildAndroid
+    name: build32
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -61,7 +61,7 @@ jobs:
           path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn
   build64:
-    name: buildAndroid
+    name: build64
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
