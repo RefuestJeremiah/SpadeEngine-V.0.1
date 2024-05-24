@@ -57,7 +57,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: androidBuild
+          name: Build32
           path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn
   build64:
@@ -113,6 +113,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: androidBuild-64bit
+          name: Build64
           path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn
