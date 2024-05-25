@@ -224,7 +224,6 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		super.graphicLoaded();
 
 		setupAnimation('normal', FlxButton.NORMAL);
-		setupAnimation('highlight', FlxButton.HIGHLIGHT);
 		setupAnimation('pressed', FlxButton.PRESSED);
 	}
 
@@ -432,7 +431,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onUpHandler():Void
 	{
-		status = FlxButton.NORMAL;
+		status = FlxButton.HIGHLIGHT;
 		input.release();
 		currentInput = null;
 		onUp.fire(); // Order matters here, because onUp.fire() could cause a state change and destroy this object.
@@ -453,7 +452,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onOverHandler():Void
 	{
-		status = FlxButton.NORMAL;
+		status = FlxButton.HIGHLIGHT;
 		onOver.fire(); // Order matters here, because onOver.fire() could cause a state change and destroy this object.
 	}
 
