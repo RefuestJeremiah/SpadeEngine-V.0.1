@@ -274,10 +274,12 @@ class MainMenuState extends MusicBeatState
 			}
 			else if (_virtualpad.buttonM.justPressed)
 			{	
+			        selectedSomethin = true;
 				MusicBeatState.switchState(new ModsMenuState());
 			}
 			else if (_virtualpad.buttonC.justPressed)
 			{	
+			        selectedSomethin = true;
 				MusicBeatState.switchState(new CreditsState());
 			}
 			#end
