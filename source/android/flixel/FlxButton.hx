@@ -127,7 +127,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 * What animation should be played for each status.
 	 * Default is ['normal', 'highlight', 'pressed'].
 	 */
-	public var statusAnimations:Array<String> = ['normal', 'highlight', 'pressed'];
+	public var statusAnimations:Array<String> = ['normal', 'pressed'];
 
 	/**
 	 * Whether you can press the button simply by releasing the touch button over it (default).
@@ -431,7 +431,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onUpHandler():Void
 	{
-		status = FlxButton.HIGHLIGHT;
+		status = FlxButton.NORMAL;
 		input.release();
 		currentInput = null;
 		onUp.fire(); // Order matters here, because onUp.fire() could cause a state change and destroy this object.
