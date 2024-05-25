@@ -35,10 +35,10 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		//#if MODS_ALLOWED 'mods', #end
+		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		//'credits',
-		//#if !switch 'donate', #end
+		'credits',
+		#if !switch 'donate', #end
 		'options'
 	];
 
@@ -160,7 +160,7 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C_E_M);
+		addVirtualPad(UP_DOWN, A_B_E);
 		#end
 
 		super.create();
@@ -211,53 +211,56 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				selectedSomethin = true;
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-
-				if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-
-				menuItems.forEach(function(spr:FlxSprite)
+				if (optionShit[curSelected] == 'donate')
 				{
-					if (curSelected != spr.ID)
-					{
-						FlxTween.tween(spr, {alpha: 0}, 0.4, {
-							ease: FlxEase.quadOut,
-							onComplete: function(twn:FlxTween)
-							{
-								spr.kill();
-							}
-						});
-					}
-					else
-					{
-						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-						{
-							var daChoice:String = optionShit[curSelected];
+					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
+				}
+				else
+				{
+					selectedSomethin = true;
+					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-							switch (daChoice)
+					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+
+					menuItems.forEach(function(spr:FlxSprite)
+					{
+						if (curSelected != spr.ID)
+						{
+							FlxTween.tween(spr, {alpha: 0}, 0.4, {
+								ease: FlxEase.quadOut,
+								onComplete: function(twn:FlxTween)
+								{
+									spr.kill();
+								}
+							});
+						}
+						else
+						{
+							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 							{
-								case 'story_mode':
-									MusicBeatState.switchState(new StoryMenuState());
-								case 'freeplay':
-									MusicBeatState.switchState(new FreeplayState());
-								/*
-								#if MODS_ALLOWED
-								case 'mods':
-									MusicBeatState.switchState(new ModsMenuState());
-								#end
-								*/
-								case 'awards':
-									MusicBeatState.switchState(new AchievementsMenuState());
-								/*
-								case 'credits':
-									MusicBeatState.switchState(new CreditsState());
-								*/
-								case 'options':
-									LoadingState.loadAndSwitchState(new options.OptionsState());
-							}
-						});
-					}
-				});
+								var daChoice:String = optionShit[curSelected];
+
+								switch (daChoice)
+								{
+									case 'story_mode':
+										MusicBeatState.switchState(new StoryMenuState());
+									case 'freeplay':
+										MusicBeatState.switchState(new FreeplayState());
+									#if MODS_ALLOWED
+									case 'mods':
+										MusicBeatState.switchState(new ModsMenuState());
+									#end
+									case 'awards':
+										MusicBeatState.switchState(new AchievementsMenuState());
+									case 'credits':
+										MusicBeatState.switchState(new CreditsState());
+									case 'options':
+										LoadingState.loadAndSwitchState(new options.OptionsState());
+								}
+							});
+						}
+					});
+				}
 			}
 			#if (desktop || android)
 			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || _virtualpad.buttonE.justPressed #end)
@@ -265,16 +268,6 @@ class MainMenuState extends MusicBeatState
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
-			#if android
-			else if (_virtualpad.buttonM.justPressed)
-			{	
-				MusicBeatState.switchState(new ModsMenuState());
-			}
-			else if (_virtualpad.buttonC.justPressed)
-			{	
-				MusicBeatState.switchState(new CreditsState());
-			}
-			#end
 			#end
 		}
 
