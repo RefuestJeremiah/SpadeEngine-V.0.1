@@ -35,10 +35,8 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		//#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		//'credits',
-		//#if !switch 'donate', #end
+		#if !switch 'donate', #end
 		'options'
 	];
 
@@ -209,19 +207,19 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 			
-			#if android
+			#if MODS_ALLOWED
 			if (_virtualpad.buttonM.justPressed)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new ModsMenuState());
 			}
+			#end
 			
 			if (_virtualpad.buttonC.justPressed)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new CreditsState());
 			}
-			#end
 
 			if (controls.ACCEPT)
 			{
@@ -260,16 +258,14 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
-									/*
 									#if MODS_ALLOWED
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());
 									#end
-									*/
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
-									//case 'credits':
-										//MusicBeatState.switchState(new CreditsState());
+									case 'credits':
+										MusicBeatState.switchState(new CreditsState());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
 								}
