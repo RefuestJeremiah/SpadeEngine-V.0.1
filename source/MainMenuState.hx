@@ -35,7 +35,9 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
+		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
+		'credits',
 		#if !switch 'donate', #end
 		'options'
 	];
@@ -158,7 +160,7 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_E);
+		addVirtualPad(UP_DOWN, A_B_C_E_M);
 		#end
 
 		super.create();
@@ -207,13 +209,11 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 			
-			#if MODS_ALLOWED
 			if (_virtualpad.buttonM.justPressed)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new ModsMenuState());
 			}
-			#end
 			
 			if (_virtualpad.buttonC.justPressed)
 			{
