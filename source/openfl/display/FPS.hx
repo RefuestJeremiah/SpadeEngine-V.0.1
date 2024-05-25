@@ -96,7 +96,6 @@ class FPS extends TextField
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			text += "\nMemory: " + memoryMegas + " MB";
 			text += "\nVersion: PsychEngine 0.6.3";
-            text += "\nBuild: KralOyuncu Test Build";
 			text += "\nOS: " + '${lime.system.System.platformLabel}';
 			#end
 
