@@ -208,6 +208,20 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
+			
+			#if android
+			if (_virtualpad.buttonM.justPressed)
+			{
+				selectedSomethin = true;
+				MusicBeatState.switchState(new ModsMenuState());
+			}
+			
+			if (_virtualpad.buttonC.justPressed)
+			{
+				selectedSomethin = true;
+				MusicBeatState.switchState(new CreditsState());
+			}
+			#end
 
 			if (controls.ACCEPT)
 			{
@@ -254,10 +268,8 @@ class MainMenuState extends MusicBeatState
 									*/
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
-									/*
-									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
-									*/
+									//case 'credits':
+										//MusicBeatState.switchState(new CreditsState());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
 								}
@@ -271,16 +283,6 @@ class MainMenuState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
-			}
-			else if (_virtualpad.buttonM.justPressed)
-			{	
-			        selectedSomethin = true;
-				MusicBeatState.switchState(new ModsMenuState());
-			}
-			else if (_virtualpad.buttonC.justPressed)
-			{	
-			        selectedSomethin = true;
-				MusicBeatState.switchState(new CreditsState());
 			}
 			#end
 		}
