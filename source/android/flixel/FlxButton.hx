@@ -127,7 +127,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 * What animation should be played for each status.
 	 * Default is ['normal', 'highlight', 'pressed'].
 	 */
-	public var statusAnimations:Array<String> = ['normal', 'pressed'];
+	public var statusAnimations:Array<String> = ['normal', 'highlight', 'pressed'];
 
 	/**
 	 * Whether you can press the button simply by releasing the touch button over it (default).
@@ -144,7 +144,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 
 	/**
 	 * Shows the current state of the button, either `FlxButton.NORMAL`,
-	 * `FlxButton.NORMAL` or `FlxButton.PRESSED`.
+	 * `FlxButton.HIGHLIGHT` or `FlxButton.PRESSED`.
 	 */
 	public var status(default, set):Int;
 
@@ -213,8 +213,8 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		// Since this is a UI element, the default scrollFactor is (0, 0)
 		scrollFactor.set();
 
-		statusAnimations[FlxButton.NORMAL] = 'normal';
-		labelAlphas[FlxButton.NORMAL] = 1;
+		statusAnimations[FlxButton.HIGHLIGHT] = 'normal';
+		labelAlphas[FlxButton.HIGHLIGHT] = 1;
 
 		input = new FlxInput(0);
 	}
@@ -224,6 +224,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		super.graphicLoaded();
 
 		setupAnimation('normal', FlxButton.NORMAL);
+		setupAnimation('highlight', FlxButton.HIGHLIGHT);
 		setupAnimation('pressed', FlxButton.PRESSED);
 	}
 
@@ -452,7 +453,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onOverHandler():Void
 	{
-		status = FlxButton.NORMAL;
+		status = FlxButton.HIGHLIGHT;
 		onOver.fire(); // Order matters here, because onOver.fire() could cause a state change and destroy this object.
 	}
 
