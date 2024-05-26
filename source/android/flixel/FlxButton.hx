@@ -144,7 +144,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 
 	/**
 	 * Shows the current state of the button, either `FlxButton.NORMAL`,
-	 * `FlxButton.HIGHLIGHT` or `FlxButton.PRESSED`.
+	 * `FlxButton.NORMAL` or `FlxButton.PRESSED`.
 	 */
 	public var status(default, set):Int;
 
@@ -213,8 +213,8 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		// Since this is a UI element, the default scrollFactor is (0, 0)
 		scrollFactor.set();
 
-		statusAnimations[FlxButton.HIGHLIGHT] = 'normal';
-		labelAlphas[FlxButton.HIGHLIGHT] = 1;
+		statusAnimations[FlxButton.NORMAL] = 'normal';
+		labelAlphas[FlxButton.NORMAL] = 1;
 
 		input = new FlxInput(0);
 	}
@@ -452,7 +452,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onOverHandler():Void
 	{
-		status = FlxButton.HIGHLIGHT;
+		status = FlxButton.NORMAL;
 		onOver.fire(); // Order matters here, because onOver.fire() could cause a state change and destroy this object.
 	}
 
