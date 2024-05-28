@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   Android:
-    name: androidBuild
+    name: Android
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -60,7 +60,7 @@ jobs:
           name: androidBuild
           path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn
-Releaser:
+  Releaser:
     needs: [Android]
     runs-on: ubuntu-latest
     permissions: write-all
