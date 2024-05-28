@@ -126,37 +126,11 @@ class FreeplayState extends MusicBeatState
 	var bg:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
-	
-	var bgMove:FlxBackdrop;
-	public static var Mainbpm:Float = 0;
-	public static var bpm:Float = 0;
-	var SoundTime:Float = 0;
-	var BeatTime:Float = 0;
-	var canBeat:Bool = true;
-	
-	var ColorArray:Array<Int> = [
-		0xFF9400D3,
-		0xFF4B0082,
-		0xFF0000FF,
-		0xFF00FF00,
-		0xFFFFFF00,
-		0xFFFF7F00,
-		0xFFFF0000
-	                                
-	    ];
-	public static var currentColor:Int = 1;    
-	public static var currentColorAgain:Int = 0;
-	
-	
 
 	override function create()
 	{
-		//Paths.clearStoredMemory();
-		//Paths.clearUnusedMemory();
-		
-		persistentUpdate = true;
-		PlayState.isStoryMode = false;
-		WeekData.reloadWeekFiles(false);
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 
 		camGame = new FlxCamera();
 		camSearch = new FlxCamera();
@@ -168,7 +142,6 @@ class FreeplayState extends MusicBeatState
 		FlxG.cameras.add(camSearch, false);
 		FlxG.cameras.add(camBlackFade, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		CustomFadeTransition.nextCamera = camBlackFade;
 
 		camSearch.y = -300 - showOffset;
 		
@@ -223,20 +196,6 @@ class FreeplayState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
-		
-		currentColor = MainMenuState.currentColor;
-		currentColorAgain = MainMenuState.currentColorAgain;
-		bpm = MainMenuState.bpm;
-		Mainbpm = MainMenuState.Mainbpm;
-		
-		bgMove = new FlxBackdrop(Paths.image('mainmenu_sprite/backdrop'), 1, 1, true, true, 0, 0);
-		//bgMove.scrollFactor.set();
-		bgMove.alpha = 0.1;
-		bgMove.color = ColorArray[currentColor];
-		bgMove.screenCenter();
-		bgMove.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		//bgMove.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bgMove);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -270,29 +229,17 @@ class FreeplayState extends MusicBeatState
 		}
 		WeekData.setDirectoryFromWeek();
 		
-	    scoreBG = new FlxSprite(FlxG.width * 0.7 - 6, 0).makeGraphic(1, 92, 0xFF000000);
+		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
+		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
+
+		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
-
-		//scoreText = new FlxText(FlxG.width * 0.7, 5, 0, '  ', 32);
-		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, '', 32);
-		//scoreText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-		scoreText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreText.antialiasing = ClientPrefs.globalAntialiasing;
-		add(scoreText);
-		//scoreText.alpha = 0.6;
-		
-		scoreText.scrollFactor.set();
-
-        //diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, '   ', 24);
-		//diffText.font = Paths.font("vcr.ttf");
-		diffText = new FlxText(FlxG.width * 0.7, 5 + 44, 0, '', 24);
-		//diffText = new FlxText(FlxG.width * 0.7, 5 + 36, 0, '', 24);
-		diffText.font = scoreText.font;
-		diffText.scrollFactor.set();
-		diffText.antialiasing = ClientPrefs.globalAntialiasing;
-		add(diffText);
-		
 		add(scoreBG);
+
+		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
+
+		diffText.font = scoreText.font;
+		add(diffText);
 		add(scoreText);
 
 		if(curSelected >= songs.length) curSelected = 0;
@@ -707,49 +654,7 @@ class FreeplayState extends MusicBeatState
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
-		
-		
-		SoundTime = FlxG.sound.music.time / 1000;
-        BeatTime = 60 / bpm;
-        
-        if ( Math.floor(SoundTime/BeatTime) % 4  == 0  && canBeat) {
-        
-            canBeat = false;
-            /*
-            currentColor++;            
-            if (currentColor > 6) currentColor = 1;
-            currentColorAgain = currentColor - 1;
-            if (currentColorAgain <= 0) currentColorAgain = 6;
-            
-            FlxTween.color(bgMove, 0.6, ColorArray[currentColorAgain], ColorArray[currentColor], {ease: FlxEase.cubeOut});
-           */
-			//camGame.zoom = 1 + 0.03;
-			//camGame.scale.y = 1 + 0.015;
-			//FlxTween.tween(camGame, {zoom: 1}, 0.6, {ease: FlxEase.cubeOut});
-			
-		    for (i in 0...iconArray.length)
-		    {
-			iconArray[i].scale.x = 1 + 0.1;
-			iconArray[i].scale.y = 1 + 0.1;
-			FlxTween.tween(iconArray[i].scale, {x: 1}, 0.6, {ease: FlxEase.cubeOut});
-		    FlxTween.tween(iconArray[i].scale, {y: 1}, 0.6, {ease: FlxEase.cubeOut});
-		    }
-            
-            grpSongs.forEach(function(spr:Alphabet)	{
-            if (spr.scale.x >= 0.99){
-            
-                spr.scale.x = 1.1;
-				spr.scale.y = 1.1;
-				    FlxTween.tween(spr.scale, {x: 1}, 0.6, {ease: FlxEase.cubeOut});
-				    FlxTween.tween(spr.scale, {y: 1}, 0.6, {ease: FlxEase.cubeOut});
-            }
-            });
-        }
-        if ( Math.floor(SoundTime/BeatTime + 0.5) % 4  == 2) canBeat = true;        
-        
-        bgMove.alpha = 0.1;
-        
-        super.update(elapsed);
+		super.update(elapsed);
 	}
 
 	public static function destroyFreeplayVocals() {
