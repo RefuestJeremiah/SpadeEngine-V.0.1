@@ -8,19 +8,19 @@ open up a Command Prompt/PowerShell or Terminal, type `haxelib install hmm`
 
 after it finishes, simply type `haxelib run hmm install` in order to install all the needed libraries for *Psych Engine!*
 
+## PsychEngine Extended Credits:
+* KralOyuncu - Repo's owner
+* DarkVerseKing - Helper
+
+### Special Thanks
+* Beihu235 - Author of Search Bar and also his Extra Controls is used here
+* MobilePorting (Team) - Extended VirtualPad Design
+
 ## Customization:
 
 if you wish to disable things like *Lua Scripts* or *Video Cutscenes*, you can read over to `Project.xml`
 
 inside `Project.xml`, you will find several variables to customize Psych Engine to your liking
-
-## Mobile Credits:
-* KralOyuncu - Repo's owner
-* DarkVerseKing - Helper
-
-### Mobile Special Thanks
-* Beihu235 - Author of extra controls and also his Search Bar is used here
-* MobilePorting (Team) - Extended VirtualPad Design
 
 to start you off, disabling Videos should be simple, simply Delete the line `"VIDEOS_ALLOWED"` or comment it out by wrapping the line in XML-like comments, like this `<!-- YOUR_LINE_HERE -->`
 
