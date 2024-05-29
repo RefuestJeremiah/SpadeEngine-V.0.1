@@ -1216,6 +1216,10 @@ class PlayState extends MusicBeatState
 
 		#if android
 		addAndroidControls();
+	        if (ClientPrefs.hitboxmode == 'Classic') {
+		MusicBeatState.androidc.visible = false;
+		}
+	        if (ClientPrefs.hitboxmode == 'New') {
 		MusicBeatState.androidc.visible = true;
 		MusicBeatState.androidc.alpha = 0.000001;
 		#end
@@ -4039,7 +4043,9 @@ class PlayState extends MusicBeatState
 		}
 
 		#if android
+		if (ClientPrefs.hitboxmode == 'New') {
 		MusicBeatState.androidc.alpha = 0.00001;
+		}
 		#end
 		timeBarBG.visible = false;
 		timeBar.visible = false;
