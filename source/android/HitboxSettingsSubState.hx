@@ -59,7 +59,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			['Bottom', 'Top']);
 		  addOption(option);
 
-		/*
 		var option:Option = new Option('Hitbox Mode:',
 			"Choose your Hitbox Style!  -mariomaster",
 			'hitboxmode',
@@ -67,7 +66,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			'New',
 			['Classic', 'New']);
 		  addOption(option);
-                */
 		  
 		var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
 			'Changes opacity -omg',
