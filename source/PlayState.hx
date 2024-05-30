@@ -1222,6 +1222,7 @@ class PlayState extends MusicBeatState
 	        if (ClientPrefs.hitboxmode == 'New') {
 		MusicBeatState.androidc.visible = true;
 		MusicBeatState.androidc.alpha = 0.000001;
+		}
 		#end
 
 		// if (SONG.song == 'South')
