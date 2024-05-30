@@ -79,8 +79,13 @@ class MusicBeatState extends FlxUIState
 				controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
 				checkHitbox = false;
 			case HITBOX:
+				if(ClientPrefs.hitboxmode == 'Classic'){
+				controls.setHitBox(androidc.hbox);
+		                }
+				if(ClientPrefs.hitboxmode == 'New'){
 				controls.setNewHitBox(androidc.newhbox);
 				checkHitbox = true;
+		                }
 			default:
 		}
 
