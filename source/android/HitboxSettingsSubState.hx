@@ -66,7 +66,14 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			'New',
 			['Classic', 'New']);
 		  addOption(option);
-		  
+
+		var option:Option = new Option('Hitbox Hint',
+			'Hitbox Hint -I hate this',
+			'hitboxhint',
+			'bool',
+			false);
+		addOption(option);
+		
 		var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
 			'Changes opacity -omg',
 			'hitboxalpha',
