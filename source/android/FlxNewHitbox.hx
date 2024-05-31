@@ -35,12 +35,24 @@ class FlxNewHitbox extends FlxSpriteGroup
 		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
 		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
 		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
+		    if (ClientPrefs.HitboxHint){
+		    var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
+		    hitbox_hint.antialiasing = orgAntialiasing;
+		    hitbox_hint.alpha = orgAlpha;
+		    add(hitbox_hint);
+		    }
         }else{
             if (ClientPrefs.hitboxLocation == 'Bottom'){
 		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
 		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
 		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
+		        if (ClientPrefs.HitboxHint){
+		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
+		        hitbox_hint.antialiasing = orgAntialiasing;
+		        hitbox_hint.alpha = orgAlpha;
+		        add(hitbox_hint);
+			}
                 
                 switch (ClientPrefs.hitboxExtend){
 					case 1:		        
