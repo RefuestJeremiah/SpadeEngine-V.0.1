@@ -1,5 +1,12 @@
 package android;
 
+//new
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.FlxGraphic;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxSprite;
+//old
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import openfl.display.BitmapData;
@@ -35,7 +42,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
 		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
 		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
-		    if (ClientPrefs.HitboxHint){
+		    if (ClientPrefs.hitboxhint){
 		    var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
 		    hitbox_hint.antialiasing = orgAntialiasing;
 		    hitbox_hint.alpha = orgAlpha;
@@ -47,12 +54,6 @@ class FlxNewHitbox extends FlxSpriteGroup
 		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
 		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
-		        if (ClientPrefs.HitboxHint){
-		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
-		        hitbox_hint.antialiasing = orgAntialiasing;
-		        hitbox_hint.alpha = orgAlpha;
-		        add(hitbox_hint);
-			}
                 
                 switch (ClientPrefs.hitboxExtend){
 					case 1:		        
@@ -75,6 +76,12 @@ class FlxNewHitbox extends FlxSpriteGroup
 		        add(buttonDown = createHint(FlxG.width / 4, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
 		        add(buttonUp = createHint(FlxG.width / 2, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
+			if (ClientPrefs.hitboxhint){
+		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
+		        hitbox_hint.antialiasing = orgAntialiasing;
+		        hitbox_hint.alpha = orgAlpha;
+		        add(hitbox_hint);
+			}
  
                 switch (ClientPrefs.hitboxExtend){
 					case 1:		        
