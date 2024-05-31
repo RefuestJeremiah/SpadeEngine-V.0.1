@@ -44,8 +44,6 @@ class FlxNewHitbox extends FlxSpriteGroup
 		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
 		    if (ClientPrefs.hitboxhint){
 		    var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
-		    hitbox_hint.antialiasing = orgAntialiasing;
-		    hitbox_hint.alpha = orgAlpha;
 		    add(hitbox_hint);
 		    }
         }else{
@@ -78,8 +76,6 @@ class FlxNewHitbox extends FlxSpriteGroup
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
 			if (ClientPrefs.hitboxhint){
 		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
-		        hitbox_hint.antialiasing = orgAntialiasing;
-		        hitbox_hint.alpha = orgAlpha;
 		        add(hitbox_hint);
 			}
  
