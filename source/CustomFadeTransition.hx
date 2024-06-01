@@ -44,7 +44,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		LoadBF.frames = Paths.getSparrowAtlas('bf running');
 		LoadBF.animation.addByPrefix('bf running', 'bf running');
 		LoadBF.animation.play('bf running');
-		LoadBF.scale.x = 0.3
+		LoadBF.scale.x = 0.3;
 		LoadBF.scale.y = 0.3;
 		LoadBF.antialiasing = ClientPrefs.globalAntialiasing;
 		add(LoadBF);
