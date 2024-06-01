@@ -46,6 +46,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		LoadBF.animation.play('bf running');
 		LoadBF.scale.x = 0.3;
 		LoadBF.scale.y = 0.3;
+		LoadBF.scrollFactor.set();
 		LoadBF.antialiasing = ClientPrefs.globalAntialiasing;
 		add(LoadBF);
 
@@ -71,7 +72,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		if(nextCamera != null) {
 			transBlack.cameras = [nextCamera];
 			transGradient.cameras = [nextCamera];
-                        LoadBF.cameras = [nextCamera];
+            LoadBF.cameras = [nextCamera];
 
 		}
 		nextCamera = null;
