@@ -53,13 +53,6 @@ class LoadingState extends MusicBeatState
 		add(funkay);
 		funkay.scrollFactor.set();
 		funkay.screenCenter();
-		
-		var LoadBF:FlxSprite = new FlxSprite(0, 50);
-		LoadBF.frames = Paths.getSparrowAtlas('bf running');
-		LoadBF.animation.addByPrefix('bf running', 'bf running');
-		LoadBF.animation.play('bf running');
-		LoadBF.antialiasing = ClientPrefs.globalAntialiasing;
-		add(LoadBF);
 
 		loadBar = new FlxSprite(0, FlxG.height - 20).makeGraphic(FlxG.width, 10, 0xffff16d2);
 		loadBar.screenCenter(X);
