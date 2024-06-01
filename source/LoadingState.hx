@@ -44,14 +44,6 @@ class LoadingState extends MusicBeatState
 	var loadBar:FlxSprite;
 	override function create()
 	{
-	    var BFLoad:FlxSprite = new FlxSprite(0, 0);
-		BFLoad.frames = Paths.getSparrowAtlas('bf running');
-		BFLoad.animation.addByPrefix('idle', "bf running", 24);
-		BFLoad.animation.play('idle');
-		BFLoad.screenCenter(X);
-		add(BFLoad);
-		BFLoad.updateHitbox();
-			
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d);
 		add(bg);
 		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/funkay.png', IMAGE));
@@ -61,6 +53,13 @@ class LoadingState extends MusicBeatState
 		add(funkay);
 		funkay.scrollFactor.set();
 		funkay.screenCenter();
+		
+		LoadBF = new FlxSprite(0, 50);
+		LoadBF.frames = Paths.getSparrowAtlas('bf running');
+		LoadBF.animation.addByPrefix('idle', 'bf running');
+		LoadBF.animation.play('idle');
+		LoadBF.antialiasing = ClientPrefs.globalAntialiasing;
+		add(LoadBF);
 
 		loadBar = new FlxSprite(0, FlxG.height - 20).makeGraphic(FlxG.width, 10, 0xffff16d2);
 		loadBar.screenCenter(X);
