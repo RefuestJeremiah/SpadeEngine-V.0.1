@@ -13,6 +13,7 @@ import flixel.util.FlxGradient;
 import flixel.FlxSubState;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
+import openfl.utils.Assets;
 
 class CustomFadeTransition extends MusicBeatSubstate {
 	public static var finishCallback:Void->Void;
@@ -50,6 +51,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		} else {
 			transGradient.y = -transGradient.height;
 			transBlack.y = transGradient.y - transBlack.height + 50;
+			FlxG.sound.play(Paths.sound('loaded'));
 			leTween = FlxTween.tween(transGradient, {y: transGradient.height + 50}, duration, {
 				onComplete: function(twn:FlxTween) {
 					if(finishCallback != null) {
