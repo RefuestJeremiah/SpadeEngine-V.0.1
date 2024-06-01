@@ -1221,7 +1221,9 @@ class PlayState extends MusicBeatState
 		}
 	        if (ClientPrefs.hitboxmode == 'New') {
 		MusicBeatState.androidc.visible = true;
+		if (!ClientPrefs.hitboxhint) {
 		MusicBeatState.androidc.alpha = 0.000001;
+		}
 		}
 		#end
 
@@ -4044,7 +4046,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if android
-		if (ClientPrefs.hitboxmode == 'New') {
+		if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
 		MusicBeatState.androidc.alpha = 0.00001;
 		}
 		#end
