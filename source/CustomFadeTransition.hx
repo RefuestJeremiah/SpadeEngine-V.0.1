@@ -40,7 +40,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		transGradient.x -= (width - FlxG.width) / 2;
 		transBlack.x = transGradient.x;
 
-		var LoadBF:FlxSprite = new FlxSprite(40, 460);
+		var LoadBF:FlxSprite = new FlxSprite(0, 50);
 		LoadBF.frames = Paths.getSparrowAtlas('bf running');
 		LoadBF.animation.addByPrefix('bf running', 'bf running');
 		LoadBF.animation.play('bf running');
