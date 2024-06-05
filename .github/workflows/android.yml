@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: Build32
-          path: export/release/android/bin/app/build/outputs/apk/debug
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: warn
   build64:
     name: build64
@@ -114,5 +114,5 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: Build64
-          path: export/release/android/bin/app/build/outputs/apk/debug
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: warn
