@@ -29,6 +29,9 @@ import Controls;
 import options.BaseOptionsMenu;
 import options.Option;
 import openfl.Lib;
+import haxe.io.Path;
+import sys.FileSystem;
+import sys.io.File;
 
 using StringTools;
 
