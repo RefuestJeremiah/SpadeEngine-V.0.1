@@ -34,6 +34,9 @@ using StringTools;
 
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
+	#if android
+	final lastStorageType:String = ClientPrefs.storageType;
+	#end
 	public function new()
 	{
 		title = 'Hitbox Settings';
@@ -98,7 +101,34 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.decimals = 2;
 		addOption(option);
         option.onChange = onChangePadAlpha;
+		
+		#if android
+		var option:Option = new Option('Storage Type:',
+			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
+			'storageType',
+			'string',
+			'NF_Engine',
+			['MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
+		addOption(option);
+		#end
+
 		super();
+	}
+	
+	function onStorageChange():Void
+	{
+		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
+
+		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
+	}
+	
+	override public function destroy() {
+		super.destroy();
+		#if android
+		if (ClientPrefs.storageType != lastStorageType) {
+		    onStorageChange();
+		}
+		#end
 	}
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
