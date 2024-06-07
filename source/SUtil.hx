@@ -21,27 +21,58 @@ import flash.system.System;
  * ...
  * @author: Saw (M.A. Jigsaw)
  */
+ 
+ /*
+ KralOyuncu was here
+*/
 
 using StringTools;
 
 class SUtil
 {
-	#if android
-	private static var aDir:String = null; // android dir
-	#end
-
-	public static function getPath():String
+	/**
+	 * This returns the external storage path that the game will use by the type.
+	 */
+	public static function getStorageDirectory(?force:Bool = false):String
 	{
+		var daPath:String = '';
+
 		#if android
-		if (aDir != null && aDir.length > 0)
-			return aDir;
-		else
-			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		if (!FileSystem.exists(LimeSystem.applicationStorageDirectory + 'storagetype.txt'))
+			File.saveContent(LimeSystem.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
+		var curStorageType:String = File.getContent(LimeSystem.applicationStorageDirectory + 'storagetype.txt');
+		daPath = force ? StorageType.fromStrForce(curStorageType) : StorageType.fromStr(curStorageType);
+		daPath = haxe.io.Path.addTrailingSlash(daPath);
 		#elseif ios
 		daPath = LimeSystem.documentsDirectory;
-		#else
-		return '';
 		#end
+
+		return daPath;
+	}
+	
+	public static function mkDirs(directory:String):Void
+	{
+		var total:String = '';
+		if (directory.substr(0, 1) == '/')
+			total = '/';
+
+		var parts:Array<String> = directory.split('/');
+		if (parts.length > 0 && parts[0].indexOf(':') > -1)
+			parts.shift();
+
+		for (part in parts)
+		{
+			if (part != '.' && part != '')
+			{
+				if (total != '' && total != '/')
+					total += '/';
+
+				total += part;
+
+				if (!FileSystem.exists(total))
+					FileSystem.createDirectory(total);
+			}
+		}
 	}
 
 	public static function doTheCheck()
@@ -58,25 +89,25 @@ class SUtil
 			if (!FileSystem.exists(Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file')))
 				FileSystem.createDirectory(Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file'));
 
-			if (!FileSystem.exists(SUtil.getPath() + 'assets') && !FileSystem.exists(SUtil.getPath() + 'mods'))
+			if (!FileSystem.exists('assets') && !FileSystem.exists('mods'))
 			{
 				SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
-				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
+				CoolUtil.browserLoad('https://b23.tv/qnuSteM');
 				System.exit(0);
 			}
 			else
 			{
-				if (!FileSystem.exists(SUtil.getPath() + 'assets'))
+				if (!FileSystem.exists('assets'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-					CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
+					CoolUtil.browserLoad('https://b23.tv/qnuSteM');
 					System.exit(0);
 				}
 
-				if (!FileSystem.exists(SUtil.getPath() + 'mods'))
+				if (!FileSystem.exists('mods'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-					CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
+					CoolUtil.browserLoad('https://b23.tv/qnuSteM');
 					System.exit(0);
 				}
 			}
@@ -112,10 +143,10 @@ class SUtil
 
 		errMsg += e.error;
 
-		if (!FileSystem.exists(SUtil.getPath() + "crash"))
-		FileSystem.createDirectory(SUtil.getPath() + "crash");
+		if (!FileSystem.exists("crash"))
+		FileSystem.createDirectory("crash");
 
-		File.saveContent(SUtil.getPath() + path, errMsg + "\n");
+		File.saveContent(path, errMsg + "\n");
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
@@ -125,25 +156,30 @@ class SUtil
 		System.exit(0);
 	}
 
-	private static function applicationAlert(title:String, description:String)
+	public static function applicationAlert(title:String, description:String)
 	{
-		#if (!ios || !iphonesim)
 		Application.current.window.alert(description, title);
-		#else
-		trace('$title - $description');
-		#end
 	}
 
-	#if !desktop
+	#if android
 	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
 	{
-		if (!FileSystem.exists(SUtil.getPath() + 'saves'))
-			FileSystem.createDirectory(SUtil.getPath() + 'saves');
+		if (!FileSystem.exists('saves'))
+			FileSystem.createDirectory('saves');
 
-		File.saveContent(SUtil.getPath() + 'saves/' + fileName + fileExtension, fileData);
+		File.saveContent('saves/' + fileName + fileExtension, fileData);
 		SUtil.applicationAlert('Done :)!', 'File Saved Successfully!');
 	}
+	
+    public static function AutosaveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
+	{
+		if (!FileSystem.exists('saves'))
+			FileSystem.createDirectory('saves');
 
+		File.saveContent('saves/' + fileName + fileExtension, fileData);
+		//SUtil.applicationAlert('Done :)!', 'File Saved Successfully!');
+	}
+	
 	public static function saveClipboard(fileData:String = 'you forgot something to add in your code')
 	{
 		openfl.system.System.setClipboard(fileData);
@@ -157,3 +193,49 @@ class SUtil
 	}
 	#end
 } 
+
+#if android
+enum abstract StorageType(String) from String to String
+{
+	final forcedPath = '/storage/emulated/0/';
+	final packageNameLocal = 'com.shadowmario.psychengineex';
+	final fileLocal = 'PsychEngine';
+	final fileLocal2 = 'NovaFlare Engine';
+	final fileLocal3 = 'NF Engine';
+	//Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName') + '/'
+
+	public static function fromStr(str:String):StorageType
+	{
+		final MEDIA = Tools.getExternalStorageDirectory() + '/Android/media/' + Application.current.meta.get('packageName');
+		final PsychEngine = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
+		final NovaFlare = forcedPath + '.' + fileLocal2;
+		final NF_Engine = forcedPath + '.' + fileLocal3;
+
+		return switch (str)
+		{
+			case "MEDIA": MEDIA;
+			case "PsychEngine": PsychEngine;
+			case "NovaFlare": NovaFlare;
+			case "NF_Engine": NF_Engine;
+			default: NF_Engine;
+		}
+	}
+
+	public static function fromStrForce(str:String):StorageType
+	{
+		final MEDIA = forcedPath + '.' + fileLocal;
+		final PsychEngine = forcedPath + '.' + fileLocal;
+		final NovaFlare = forcedPath + '.' + fileLocal2;
+		final NF_Engine = forcedPath + '.' + fileLocal3;
+
+		return switch (str)
+		{
+			case "MEDIA": MEDIA;
+			case "PsychEngine": PsychEngine;
+			case "NovaFlare": NovaFlare;
+			case "NF_Engine": NF_Engine;
+			default: PsychEngine;
+		}
+	}
+}
+#end
