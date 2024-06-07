@@ -525,7 +525,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -578,7 +578,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -630,7 +630,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -668,7 +668,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -750,7 +750,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -790,7 +790,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -835,7 +835,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -2209,7 +2209,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = SUtil.getPath() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = SUtil.getStorageDirectory() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 
@@ -2628,13 +2628,13 @@ class FunkinLua {
 			{
 				return true;
 			}
-			return FileSystem.exists(Paths.getPath('assets/$filename', TEXT));
+			return FileSystem.exists(Paths.getStorageDirectory('assets/$filename', TEXT));
 			#else
 			if(absolute)
 			{
 				return Assets.exists(filename);
 			}
-			return Assets.exists(Paths.getPath('assets/$filename', TEXT));
+			return Assets.exists(Paths.getStorageDirectory('assets/$filename', TEXT));
 			#end
 		});
 		Lua_helper.add_callback(lua, "saveFile", function(path:String, content:String, ?absolute:Bool = false)
@@ -2666,7 +2666,7 @@ class FunkinLua {
 				}
 				#end
 
-				var lePath:String = Paths.getPath(path, TEXT);
+				var lePath:String = Paths.getStorageDirectory(path, TEXT);
 				if(Assets.exists(lePath))
 				{
 					FileSystem.deleteFile(lePath);

@@ -119,7 +119,7 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
+	public static function getStorageDirectory(file:String, type:AssetType, ?library:Null<String> = null)
 	{
 		if (library != null)
 			return getLibraryPath(file, library);
@@ -159,35 +159,35 @@ class Paths
 
 	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)
 	{
-		return getPath(file, type, library);
+		return getStorageDirectory(file, type, library);
 	}
 
 	inline static public function txt(key:String, ?library:String)
 	{
-		return getPath('data/$key.txt', TEXT, library);
+		return getStorageDirectory('data/$key.txt', TEXT, library);
 	}
 
 	inline static public function xml(key:String, ?library:String)
 	{
-		return getPath('data/$key.xml', TEXT, library);
+		return getStorageDirectory('data/$key.xml', TEXT, library);
 	}
 
 	inline static public function json(key:String, ?library:String)
 	{
-		return getPath('data/$key.json', TEXT, library);
+		return getStorageDirectory('data/$key.json', TEXT, library);
 	}
 
 	inline static public function shaderFragment(key:String, ?library:String)
 	{
-		return getPath('shaders/$key.frag', TEXT, library);
+		return getStorageDirectory('shaders/$key.frag', TEXT, library);
 	}
 	inline static public function shaderVertex(key:String, ?library:String)
 	{
-		return getPath('shaders/$key.vert', TEXT, library);
+		return getStorageDirectory('shaders/$key.vert', TEXT, library);
 	}
 	inline static public function lua(key:String, ?library:String)
 	{
-		return getPath('$key.lua', TEXT, library);
+		return getStorageDirectory('$key.lua', TEXT, library);
 	}
 
 	static public function video(key:String)
@@ -198,7 +198,7 @@ class Paths
 			return file;
 		}
 		#end
-		return SUtil.getPath() + 'assets/videos/$key.$VIDEO_EXT';
+		return SUtil.getStorageDirectory() + 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -245,24 +245,24 @@ class Paths
 		if (!ignoreMods && FileSystem.exists(modFolders(key)))
 			return File.getContent(modFolders(key));
 
-		if (FileSystem.exists(SUtil.getPath() + getPreloadPath(key)))
-			return File.getContent(SUtil.getPath() + getPreloadPath(key));
+		if (FileSystem.exists(SUtil.getStorageDirectory() + getPreloadPath(key)))
+			return File.getContent(SUtil.getStorageDirectory() + getPreloadPath(key));
 
 		if (currentLevel != null)
 		{
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
-				levelPath = SUtil.getPath() + getLibraryPathForce(key, currentLevel);
+				levelPath = SUtil.getStorageDirectory() + getLibraryPathForce(key, currentLevel);
 				if (FileSystem.exists(levelPath))
 					return File.getContent(levelPath);
 			}
 
-			levelPath = SUtil.getPath() + getLibraryPathForce(key, 'shared');
+			levelPath = SUtil.getStorageDirectory() + getLibraryPathForce(key, 'shared');
 			if (FileSystem.exists(levelPath))
 				return File.getContent(levelPath);
 		}
 		#end
-		return Assets.getText(getPath(key, TEXT));
+		return Assets.getText(getStorageDirectory(key, TEXT));
 	}
 
 	inline static public function font(key:String)
@@ -273,7 +273,7 @@ class Paths
 			return file;
 		}
 		#end
-		return SUtil.getPath() + 'assets/fonts/$key';
+		return SUtil.getStorageDirectory() + 'assets/fonts/$key';
 	}
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
@@ -284,7 +284,7 @@ class Paths
 		}
 		#end
 
-		if(OpenFlAssets.exists(getPath(key, type))) {
+		if(OpenFlAssets.exists(getStorageDirectory(key, type))) {
 			return true;
 		}
 		return false;
@@ -346,7 +346,7 @@ class Paths
 		}
 		#end
 
-		var path = getPath('images/$key.png', IMAGE, library);
+		var path = getStorageDirectory('images/$key.png', IMAGE, library);
 		//trace(path);
 		if (OpenFlAssets.exists(path, IMAGE)) {
 			if(!currentTrackedAssets.exists(path)) {
@@ -374,7 +374,7 @@ class Paths
 		}
 		#end
 		// I hate this so god damn much
-		var gottenPath:String = SUtil.getPath() + getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		var gottenPath:String = SUtil.getStorageDirectory() + getStorageDirectory('$path/$key.$SOUND_EXT', SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
@@ -385,7 +385,7 @@ class Paths
 			var folder:String = '';
 			if(path == 'songs') folder = 'songs:';
 
-			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
+			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getStorageDirectory('$path/$key.$SOUND_EXT', SOUND, library)));
 		}
 		#end
 		localTrackedAssets.push(gottenPath);
@@ -394,7 +394,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-		return SUtil.getPath() + 'mods/' + key;
+		return SUtil.getStorageDirectory() + 'mods/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -453,7 +453,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		return SUtil.getPath() + 'mods/' + key;
+		return SUtil.getStorageDirectory() + 'mods/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];
@@ -464,7 +464,7 @@ class Paths
 	static public function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
-		var path:String = SUtil.getPath() + 'modsList.txt';
+		var path:String = SUtil.getStorageDirectory() + 'modsList.txt';
 		if(FileSystem.exists(path))
 		{
 			var list:Array<String> = CoolUtil.coolTextFile(path);
