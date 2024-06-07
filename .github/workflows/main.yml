@@ -21,11 +21,8 @@ jobs:
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
       
-      - name: Build with Xcode
+      - name: Build with FuckBoy
         run: |
-          xcodebuild -project PsychEngine.xcodeproj \
-          -scheme PsychEngine \
-          -configuration Release \
           IPHONEOS_DEPLOYMENT_TARGET=15.0 \
           ARCHS=arm64
 
