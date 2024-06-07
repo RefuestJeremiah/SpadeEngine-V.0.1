@@ -5,6 +5,7 @@ import android.Tools;
 import android.Permissions;
 import android.PermissionsList;
 #end
+import lime.system.System as LimeSystem;
 import lime.app.Application;
 import openfl.events.UncaughtErrorEvent;
 import openfl.utils.Assets as OpenFlAssets;
@@ -36,6 +37,8 @@ class SUtil
 			return aDir;
 		else
 			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		#elseif ios
+		daPath = LimeSystem.documentsDirectory;
 		#else
 		return '';
 		#end
@@ -124,10 +127,14 @@ class SUtil
 
 	private static function applicationAlert(title:String, description:String)
 	{
+		#if (!ios || !iphonesim)
 		Application.current.window.alert(description, title);
+		#else
+		trace('$title - $description');
+		#end
 	}
 
-	#if android
+	#if !desktop
 	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
 	{
 		if (!FileSystem.exists(SUtil.getPath() + 'saves'))
