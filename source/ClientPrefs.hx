@@ -34,6 +34,7 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
+	#if android public static var storageType:String = 'PsychEngine'; #end
         public static var hitboxhint = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxExtend:Int = 0;
@@ -138,7 +139,8 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
-		
+
+		FlxG.save.data.storageType = storageType;
 		FlxG.save.data.hitboxExtend = hitboxExtend;
 	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
@@ -257,6 +259,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hitsoundVolume != null) {
 			hitsoundVolume = FlxG.save.data.hitsoundVolume;
+		}
+		if(FlxG.save.data.storageType != null) {
+			storageType = FlxG.save.data.storageType;
 		}
 		if(FlxG.save.data.hitboxmode != null) {
 			hitboxmode = FlxG.save.data.hitboxmode;
