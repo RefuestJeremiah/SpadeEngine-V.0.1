@@ -31,9 +31,11 @@
             "version":null
         },
         {
-            "name":"hxcpp",
-            "type":"haxelib",
-            "version":"4.2.1"
+            "name": "hxcpp",
+            "type": "git",
+            "dir": null,
+            "ref": "master",
+            "url": "https://github.com/mcagabe19-stuff/hxcpp" 
         },
         {
             "name":"tjson",
@@ -63,11 +65,11 @@
             "url":"https://github.com/ianharrigan/hscript-ex"
         },
         {
-            "name":"linc_luajit",
-            "type":"git",
-            "dir":null,
-            "ref":"master",
-            "url":"https://github.com/Sirox228/linc_luajit"
+            "name": "linc_luajit",
+            "type": "git",
+            "dir": null,
+            "ref": "master",
+            "url": "https://github.com/superpowers04/linc_luajit.git"
         },
         {
             "name": "hxCodec",
