@@ -33,8 +33,9 @@
         },
         {
             "name":"hxcpp",
-            "type":"haxelib",
-            "version":"4.2.1"
+            "type": "git",
+            "ref": "main",
+            "url": "https://github.com/PsychPorting/hxcpp-0.6.3.git"
         },
         {
             "name":"tjson",
@@ -68,7 +69,7 @@
             "type":"git",
             "dir":null,
             "ref":"master",
-            "url":"https://github.com/Sirox228/linc_luajit"
+            "url":"https://github.com/PsychPorting/linc_luajit-0.6.3.git"
         },
         {
             "name": "hxCodec",
