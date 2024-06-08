@@ -1,6 +1,12 @@
 {
     "dependencies":[
         {
+            "name": "discord_rpc",
+            "type": "git",
+            "ref": "master",
+            "url": "https://github.com/Aidan63/linc_discord-rpc"
+        },
+        {
             "name":"lime",
             "type": "git",
             "ref": "main",
@@ -28,8 +34,8 @@
         },
         {
             "name":"flixel-ui",
-            "type":"haxelib",
-            "version":null
+            "type": "haxelib",
+            "version": "2.4.0"
         },
         {
             "name":"hxcpp",
@@ -49,8 +55,8 @@
         },
         {
             "name":"hscript",
-            "type":"haxelib",
-            "version":null
+            "type": "haxelib",
+            "version": "2.4.0"
         },
         {
             "name":"hxcpp-debug-server",
@@ -72,8 +78,9 @@
         },
         {
             "name": "hxCodec",
-            "type": "haxelib",
-            "version": "2.5.1"
+            "type": "git",
+            "ref": "main",
+            "url": "https://github.com/PsychPorting/hxCodec-0.6.3.git"
         },
         {
             "name":"extension-androidtools",
@@ -84,3 +91,4 @@
         }
     ]
         }
+        
