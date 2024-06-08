@@ -67,7 +67,7 @@
         {
             "name":"linc_luajit",
             "type":"git",
-            "ref":"master",
+            "ref":"main",
             "url":"https://github.com/PsychPorting/linc_luajit-0.6.3.git"
         },
         {
