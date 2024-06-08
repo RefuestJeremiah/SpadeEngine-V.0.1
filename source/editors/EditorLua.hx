@@ -34,8 +34,8 @@ import Discord;
 using StringTools;
 
 class EditorLua {
-	public static var Function_Stop = 1;
-	public static var Function_Continue = 0;
+	public static var Function_Stop:Dynamic = 1;
+	public static var Function_Continue:Dynamic = 0;
 
 	#if LUA_ALLOWED
 	public var lua:State = null;
@@ -53,8 +53,8 @@ class EditorLua {
 		var result:Dynamic = LuaL.dofile(lua, script);
 		var resultStr:String = Lua.tostring(lua, result);
 		if(resultStr != null && result != 0) {
-			SUtil.showPopUp(resultStr, 'Error on .LUA script!');
-			//trace('Error on .LUA script! ' + resultStr);
+			lime.app.Application.current.window.alert(resultStr, 'Error on .LUA script!');
+			trace('Error on .LUA script! ' + resultStr);
 			lua = null;
 			return;
 		}
@@ -180,9 +180,10 @@ class EditorLua {
 			}
 		});
 
-		#if desktop
+    #if desktop
 		Discord.DiscordClient.addLuaCallbacks(lua);
-                #end
+    #end
+
 		call('onCreate', []);
 		#end
 	}
