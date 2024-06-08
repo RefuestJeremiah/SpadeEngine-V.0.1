@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxSave;
 import flixel.FlxG;
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
@@ -139,7 +140,15 @@ class CoolUtil
 		#end
 	}
 
-	public static function last<T>(array:Array<T>):T {
-		return array[array.length - 1];
+	/** Quick Function to Fix Save Files for Flixel 5
+		if you are making a mod, you are gonna wanna change "ShadowMario" to something else
+		so Base Psych saves won't conflict with yours
+		@BeastlyGabi
+	**/
+	public static function getSavePath(folder:String = 'ShadowMario'):String {
+		@:privateAccess
+		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
+			+ '/'
+			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 }

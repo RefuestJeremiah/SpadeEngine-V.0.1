@@ -20,7 +20,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Continue', 'Restart Song', 'Skip Time', 'Botplay', 'Practice Mode', 'Options', 'Change Difficulty' #if android, 'Chart Editor' #end, 'Exit to menu', 'Exit to main menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Skip Time', 'Botplay', 'Practice Mode', 'Options' #if android, 'Chart Editor' #end, 'Exit to menu', 'Exit to main menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -28,12 +28,12 @@ class PauseSubState extends MusicBeatSubstate
 	var practiceText:FlxText;
 	
 	public static var MoveOption:Bool;
-
+	
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
 	//var botplayText:FlxText;
-
+	
 	public static var songName:String = '';
 
 	public function new(x:Float, y:Float)
@@ -46,9 +46,12 @@ class PauseSubState extends MusicBeatSubstate
 			menuItemsOG.insert(2, 'Leave Charting Mode');
 			
 			var num:Int = 0;
-			
+			if(!PlayState.instance.startingSong)
+			{
+				num = 1;
+				menuItemsOG.insert(3, 'Skip Time');
+			}
 			menuItemsOG.insert(3 + num, 'End Song');
-			menuItemsOG.insert(4 + num, 'Practice Mode');
 		}
 		menuItems = menuItemsOG;
 
@@ -222,7 +225,7 @@ class PauseSubState extends MusicBeatSubstate
 
 			switch (daSelected)
 			{
-				case "Continue":
+				case "Resume":
 					close();
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
@@ -261,11 +264,11 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
-                case 'Chart Editor':
-		            MusicBeatState.switchState(new editors.ChartingState());
-		            PlayState.chartingMode = true;
+                                case 'Chart Editor':
+		                        MusicBeatState.switchState(new editors.ChartingState());
+		                        PlayState.chartingMode = true;
 		        case 'Options':
-					MoveOption = true;
+		            MoveOption = true;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					MusicBeatState.switchState(new options.OptionsState());
@@ -381,7 +384,6 @@ class PauseSubState extends MusicBeatSubstate
 		for (i in 0...menuItems.length) {
 			var item = new Alphabet(90, 320, menuItems[i], true);
 			item.isMenuItem = true;
-			item.screenCenter();
 			item.targetY = i;
 			grpMenuShit.add(item);
 
@@ -406,8 +408,8 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		if(skipTimeText == null || skipTimeTracker == null) return;
 
-		skipTimeText.x = skipTimeTracker.x + skipTimeTracker.width + 60 + 200;
-		skipTimeText.y = 320;
+		skipTimeText.x = skipTimeTracker.x + skipTimeTracker.width + 60;
+		skipTimeText.y = skipTimeTracker.y;
 		skipTimeText.visible = (skipTimeTracker.alpha >= 1);
 	}
 
