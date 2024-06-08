@@ -161,6 +161,11 @@ class DialogueCharacterEditorState extends MusicBeatState
 		addEditorBox();
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
+
+		#if android
+		addVirtualPad(FULL, A_B_X_Y);
+		addPadCamera();
+		#end
 		
 		super.create();
 	}
@@ -259,10 +264,13 @@ class DialogueCharacterEditorState extends MusicBeatState
 		});
 		
 		animationInputText = new FlxUIInputText(15, 85, 80, '', 8);
+		animationInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(animationInputText);
 		loopInputText = new FlxUIInputText(animationInputText.x, animationInputText.y + 35, 150, '', 8);
+		loopInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(loopInputText);
 		idleInputText = new FlxUIInputText(loopInputText.x, loopInputText.y + 40, 150, '', 8);
+		idleInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(idleInputText);
 		
 		var addUpdateButton:FlxButton = new FlxButton(10, idleInputText.y + 30, "Add/Update", function() {
@@ -364,6 +372,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		tab_group.name = "Character";
 
 		imageInputText = new FlxUIInputText(10, 30, 80, character.jsonFile.image, 8);
+		imageInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(imageInputText);
 		xStepper = new FlxUINumericStepper(imageInputText.x, imageInputText.y + 50, 10, character.jsonFile.position[0], -2000, 2000, 0);
 		yStepper = new FlxUINumericStepper(imageInputText.x + 80, xStepper.y, 10, character.jsonFile.position[1], -2000, 2000, 0);
@@ -529,7 +538,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE && UI_mainbox.selected_tab_id == 'Character') {
+			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonA.justPressed #end && UI_mainbox.selected_tab_id == 'Character') {
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 				daText.resetDialogue();
 				updateTextBox();
@@ -538,7 +547,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			//lots of Ifs lol get trolled
 			var offsetAdd:Int = 1;
 			var speed:Float = 300;
-			if(FlxG.keys.pressed.SHIFT) {
+			if(FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonB.justPressed #end) {
 				speed = 1200;
 				offsetAdd = 10;
 			}
@@ -558,8 +567,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Animations' && curSelectedAnim != null && character.dialogueAnimations.exists(curSelectedAnim)) {
 				var moved:Bool = false;
 				var animShit:DialogueAnimArray = character.dialogueAnimations.get(curSelectedAnim);
-				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A, FlxG.keys.justPressed.W, FlxG.keys.justPressed.D, FlxG.keys.justPressed.S];
-				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT, FlxG.keys.justPressed.UP, FlxG.keys.justPressed.RIGHT, FlxG.keys.justPressed.DOWN];
+				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A #if android || _virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.W #if android || _virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.D #if android || _virtualpad.buttonRight.justPressed #end, FlxG.keys.justPressed.S #if android || _virtualpad.buttonDown.justPressed #end];
+				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT #if android || _virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.UP #if android || _virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.RIGHT #if android || _virtualpad.buttonRight.justPressed #end, FlxG.keys.justPressed.DOWN #if android || _virtualpad.buttonDown.justPressed #end];
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
 						if(i % 2 == 1) {
@@ -597,7 +606,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				camGame.zoom += elapsed * camGame.zoom;
 				if(camGame.zoom > 1) camGame.zoom = 1;
 			}
-			if(FlxG.keys.justPressed.H) {
+			if(FlxG.keys.justPressed.H #if android || _virtualpad.buttonX.justPressed #end) {
 				if(UI_mainbox.selected_tab_id == 'Animations') {
 					currentGhosts++;
 					if(currentGhosts > 2) currentGhosts = 0;
@@ -610,7 +619,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 					hudGroup.visible = !hudGroup.visible;
 				}
 			}
-			if(FlxG.keys.justPressed.R) {
+			if(FlxG.keys.justPressed.R #if android || _virtualpad.buttonY.justPressed #end) {
 				camGame.zoom = 1;
 				mainGroup.setPosition(0, 0);
 				hudGroup.visible = true;
@@ -652,7 +661,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Character')
 			{
 				var negaMult:Array<Int> = [1, -1];
-				var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W, FlxG.keys.justPressed.S];
+				var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W #if android || _virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.S #if android || _virtualpad.buttonDown.justPressed #end];
 
 				if(controlAnim.contains(true))
 				{
@@ -672,7 +681,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.ESCAPE) {
+			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
@@ -767,8 +776,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 			var splittedImage:Array<String> = imageInputText.text.trim().split('_');
 			var characterName:String = splittedImage[0].toLowerCase().replace(' ', '');
 
-			#if mobile
-			SUtil.saveContent(characterName /*GACHA HORROR REFERANCE!?!?!?!*/, '.json', data);
+			#if android
+			SUtil.saveContent(characterName, ".json", data);
 			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
