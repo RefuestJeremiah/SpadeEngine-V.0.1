@@ -8,7 +8,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -38,29 +37,14 @@ class OptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) {
 		switch(label) {
 			case 'Note Colors':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.NotesSubState());
 			case 'Controls':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
@@ -71,9 +55,6 @@ class OptionsState extends MusicBeatState
 	var selectorRight:Alphabet;
 
 	override function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
@@ -105,26 +86,6 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		#if android
-		var tipText:FlxText = new FlxText(10, 12, 0, 'Press X to Go In Android Controls Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2;
-		tipText.scrollFactor.set();
-		add(tipText);
-		var tipText:FlxText = new FlxText(10, 32, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2;
-		tipText.scrollFactor.set();
-		add(tipText);
-		#end
-
-		changeSelection();
-		ClientPrefs.saveSettings();
-
-		#if android
-		addVirtualPad(UP_DOWN, A_B_X_Y);
-		#end
-
 		super.create();
 	}
 
@@ -144,30 +105,9 @@ class OptionsState extends MusicBeatState
 		}
 
 		if (controls.BACK) {
-	     	if (PauseSubState.MoveOption) {
-				MusicBeatState.switchState(new PlayState());
-				PauseSubState.MoveOption = false;
-			}
-			else if (PlayState.MoveOption) {
-				MusicBeatState.switchState(new PlayState());
-				PlayState.MoveOption = false;
-			} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
-		    }
 		}
-
-		#if android
-		if (_virtualpad.buttonX.justPressed) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new android.AndroidControlsMenu());
-		}
-		if (_virtualpad.buttonY.justPressed) {
-			removeVirtualPad();
-			openSubState(new android.HitboxSettingsSubState());
-		}
-		#end
 
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);

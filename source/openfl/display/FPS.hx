@@ -17,27 +17,34 @@ import openfl.Lib;
 import openfl.system.System;
 #end
 
+#if lime
+import lime.system.System as LimeSystem;
+#end
+
 /**
 	The FPS class provides an easy-to-use monitor to display
 	the current frame rate of an OpenFL project
 **/
+#if cpp
+#if windows
+@:cppFileCode('#include <windows.h>')
+#elseif (ios || mac)
+@:cppFileCode('#include <mach-o/arch.h>')
+#else
+@:headerInclude('sys/utsname.h')
+#end
+#end
 #if !openfl_debug
 @:fileXml('tags="haxe,release"')
 @:noDebug
 #end
-
-enum GLInfo
-{
-	RENDERER;
-	SHADING_LANGUAGE_VERSION;
-}
-
 class FPS extends TextField
 {
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentFPS(default, null):Int;
+	@:noCompletion private final os:String;
 
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
@@ -46,6 +53,11 @@ class FPS extends TextField
 	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
 	{
 		super();
+
+		if (LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null)
+			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end;
+		else
+			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end + ' - ${LimeSystem.platformVersion}';
 
 		this.x = x;
 		this.y = y;
@@ -95,9 +107,9 @@ class FPS extends TextField
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			text += "\nMemory: " + memoryMegas + " MB";
-			text += "\nVersion: PsychEngine 0.6.3";
-			text += "\nOS: " + '${lime.system.System.platformLabel}';
 			#end
+
+			text += os;
 
 			textColor = 0xFFFFFFFF;
 			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
@@ -116,19 +128,46 @@ class FPS extends TextField
 
 		cacheCount = currentCount;
 	}
-	private function getGLInfo(info:GLInfo):String
-	{
-		@:privateAccess
-		var gl:Dynamic = Lib.current.stage.context3D.gl;
 
-		switch (info)
+	#if cpp
+	#if windows
+	@:functionCode('
+		SYSTEM_INFO osInfo;
+
+		GetSystemInfo(&osInfo);
+
+		switch(osInfo.wProcessorArchitecture)
 		{
-			case RENDERER:
-				return Std.string(gl.getParameter(gl.RENDERER));
-			case SHADING_LANGUAGE_VERSION:
-				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
+			case 9:
+				return ::String("x86_64");
+			case 5:
+				return ::String("ARM");
+			case 12:
+				return ::String("ARM64");
+			case 6:
+				return ::String("IA-64");
+			case 0:
+				return ::String("x86");
+			default:
+				return ::String("Unknown");
 		}
-
-		return '';
+	')
+	#elseif (ios || mac)
+	@:functionCode('
+		const NXArchInfo *archInfo = NXGetLocalArchInfo();
+    	return ::String(archInfo == NULL ? "Unknown" : archInfo->name);
+	')
+	#else
+	@:functionCode('
+		struct utsname osInfo{};
+		uname(&osInfo);
+		return ::String(osInfo.machine);
+	')
+	#end
+	@:noCompletion
+	private function getArch():String
+	{
+		return "Unknown";
 	}
+	#end
 }
