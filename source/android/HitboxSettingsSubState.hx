@@ -29,17 +29,11 @@ import Controls;
 import options.BaseOptionsMenu;
 import options.Option;
 import openfl.Lib;
-import haxe.io.Path;
-import sys.FileSystem;
-import sys.io.File;
 
 using StringTools;
 
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
-	#if mobile
-	final lastStorageType:String = ClientPrefs.storageType;
-	#end
 	public function new()
 	{
 		title = 'Hitbox Settings';
@@ -104,13 +98,14 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.decimals = 2;
 		addOption(option);
         option.onChange = onChangePadAlpha;
+		super();
 		
-		#if mobile
+		#if android
 		var option:Option = new Option('Storage Type:',
 			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
 			'storageType',
 			'string',
-			'NF_Engine',
+			'PsychEngine',
 			['MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
 		addOption(option);
 		#end
@@ -127,7 +122,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	
 	override public function destroy() {
 		super.destroy();
-		#if mobile
+		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
 		}
@@ -145,7 +140,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-			#if mobile
+			#if android
 		if (FlxG.android.justReleased.BACK)
 		{
 			FlxTransitionableState.skipNextTransIn = true;

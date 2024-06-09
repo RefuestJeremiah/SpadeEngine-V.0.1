@@ -166,11 +166,11 @@ class EditorPlayState extends MusicBeatState
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
 
-		#if mobile
+		#if android
 		addAndroidControls();
 		#end
 
-		#if mobile
+		#if android
 		MusicBeatState.androidc.visible = true;
 		#end
 
@@ -333,11 +333,11 @@ class EditorPlayState extends MusicBeatState
 	public var noteKillOffset:Float = 350;
 	public var spawnTime:Float = 2000;
 	override function update(elapsed:Float) {
-		if (FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end)
+		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end)
 		{
 			FlxG.sound.music.pause();
 			vocals.pause();
-			#if mobile
+			#if android
 			MusicBeatState.androidc.visible = false;
 			#end
 			LoadingState.loadAndSwitchState(new editors.ChartingState());

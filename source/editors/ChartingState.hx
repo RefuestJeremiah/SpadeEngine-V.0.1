@@ -34,7 +34,7 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-#if mobile
+#if android
 import android.flixel.FlxButton;
 #else
 import flixel.ui.FlxButton;
@@ -399,7 +399,7 @@ class ChartingState extends MusicBeatState
 
 		updateGrid();
 
-		#if mobile
+		#if android
 		addVirtualPad(FULL, A_B_C_X_Y_Z);
 		#end
 
@@ -460,7 +460,7 @@ class ChartingState extends MusicBeatState
 			var songName:String = Paths.formatToSongPath(_song.song);
 			var file:String = Paths.json(songName + '/events');
 			#if sys
-			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(SUtil.getStorageDirectory() + file))
+			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(SUtil.getPath() + file))
 			#else
 			if (OpenFlAssets.exists(file))
 			#end
@@ -506,7 +506,7 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Paths.currentModDirectory + '/characters/'), SUtil.getStorageDirectory() + Paths.getPreloadPath('characters/')];
+		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Paths.currentModDirectory + '/characters/'), SUtil.getPath() + Paths.getPreloadPath('characters/')];
 		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/characters/'));
 		#else
@@ -514,7 +514,7 @@ class ChartingState extends MusicBeatState
 		#end
 
 		var tempMap:Map<String, Bool> = new Map<String, Bool>();
-		var characters:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.txt('characterList'));
+		var characters:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('characterList'));
 		for (i in 0...characters.length) {
 			tempMap.set(characters[i], true);
 		}
@@ -562,7 +562,7 @@ class ChartingState extends MusicBeatState
 		blockPressWhileScrolling.push(player2DropDown);
 
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.currentModDirectory + '/stages/'), SUtil.getStorageDirectory() + Paths.getPreloadPath('stages/')];
+		var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.currentModDirectory + '/stages/'), SUtil.getPath() + Paths.getPreloadPath('stages/')];
 		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/stages/'));
 		#else
@@ -570,7 +570,7 @@ class ChartingState extends MusicBeatState
 		#end
 
 		tempMap.clear();
-		var stageFile:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.txt('stageList'));
+		var stageFile:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('stageList'));
 		var stages:Array<String> = [];
 		for (i in 0...stageFile.length) { //Prevent duplicates
 			var stageToCheck:String = stageFile[i];
@@ -1580,7 +1580,7 @@ class ChartingState extends MusicBeatState
 		FlxG.watch.addQuick('daBeat', curBeat);
 		FlxG.watch.addQuick('daStep', curStep);
 
-		#if mobile
+		#if android
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.x > gridBG.x
@@ -1727,12 +1727,12 @@ class ChartingState extends MusicBeatState
 
 		if (!blockInput)
 		{
-			if (FlxG.keys.justPressed.ESCAPE #if mobile || _virtualpad.buttonB.justPressed #end)
+			if (FlxG.keys.justPressed.ESCAPE #if android || _virtualpad.buttonB.justPressed #end)
 			{
 				autosaveSong();
 				LoadingState.loadAndSwitchState(new editors.EditorPlayState(sectionStartTime()));
 			}
-			if (FlxG.keys.justPressed.ENTER #if mobile || _virtualpad.buttonA.justPressed #end)
+			if (FlxG.keys.justPressed.ENTER #if android || _virtualpad.buttonA.justPressed #end)
 			{
 				autosaveSong();
 				FlxG.mouse.visible = false;
@@ -1757,7 +1757,7 @@ class ChartingState extends MusicBeatState
 			}
 
 
-			if (FlxG.keys.justPressed.BACKSPACE #if mobile || FlxG.android.justReleased.BACK #end) {
+			if (FlxG.keys.justPressed.BACKSPACE #if android || FlxG.android.justReleased.BACK #end) {
 				PlayState.chartingMode = false;
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -1765,17 +1765,17 @@ class ChartingState extends MusicBeatState
 				return;
 			}
  
-			if(FlxG.keys.justPressed.Z #if mobile || _virtualpad.buttonZ.justPressed #end && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if(FlxG.keys.justPressed.Z #if android || _virtualpad.buttonZ.justPressed #end && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				undo();
 			}
 
 
 
-			if((FlxG.keys.justPressed.Z #if mobile || _virtualpad.buttonZ.justPressed #end) && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if((FlxG.keys.justPressed.Z #if android || _virtualpad.buttonZ.justPressed #end) && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				--curZoom;
 				updateZoom();
 			}
-			if(FlxG.keys.justPressed.X #if mobile || _virtualpad.buttonC.justPressed #end && curZoom < zoomList.length-1) {
+			if(FlxG.keys.justPressed.X #if android || _virtualpad.buttonC.justPressed #end && curZoom < zoomList.length-1) {
 				curZoom++;
 				updateZoom();
 			}
@@ -1796,7 +1796,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.justPressed.SPACE #if mobile || _virtualpad.buttonX.justPressed #end)
+			if (FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonX.justPressed #end)
 			{
 				if (FlxG.sound.music.playing)
 				{
@@ -1817,7 +1817,7 @@ class ChartingState extends MusicBeatState
 
 			if (!FlxG.keys.pressed.ALT && FlxG.keys.justPressed.R)
 			{
-				if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonY.pressed #end)
+				if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonY.pressed #end)
 					resetSection(true);
 				else
 					resetSection();
@@ -1855,17 +1855,17 @@ class ChartingState extends MusicBeatState
 
 
 
-			if (FlxG.keys.pressed.W || FlxG.keys.pressed.S #if mobile || _virtualpad.buttonUp.pressed || _virtualpad.buttonDown.pressed #end)
+			if (FlxG.keys.pressed.W || FlxG.keys.pressed.S #if android || _virtualpad.buttonUp.pressed || _virtualpad.buttonDown.pressed #end)
 			{
 				FlxG.sound.music.pause();
 
 				var holdingShift:Float = 1;
 				if (FlxG.keys.pressed.CONTROL) holdingShift = 0.25;
-				else if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonY.pressed #end) holdingShift = 4;
+				else if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonY.pressed #end) holdingShift = 4;
 
 				var daTime:Float = 700 * FlxG.elapsed * holdingShift;
 
-				if (FlxG.keys.pressed.W #if mobile || _virtualpad.buttonUp.pressed #end)
+				if (FlxG.keys.pressed.W #if android || _virtualpad.buttonUp.pressed #end)
 				{
 					FlxG.sound.music.time -= daTime;
 				}
@@ -1900,7 +1900,7 @@ class ChartingState extends MusicBeatState
 
 			var style = currentType;
 
-			if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonY.pressed #end) {
+			if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonY.pressed #end) {
 				style = 3;
 			}
 
@@ -1909,7 +1909,7 @@ class ChartingState extends MusicBeatState
 			//AWW YOU MADE IT SEXY <3333 THX SHADMAR
 
 			if(!blockInput){
-				if(FlxG.keys.justPressed.RIGHT #if mobile || _virtualpad.buttonRight.justPressed #end){
+				if(FlxG.keys.justPressed.RIGHT #if android || _virtualpad.buttonRight.justPressed #end){
 					curQuant++;
 					if(curQuant>quantizations.length-1)
 						curQuant = 0;
@@ -1917,7 +1917,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT  #if mobile || _virtualpad.buttonLeft.justPressed #end){
+				if(FlxG.keys.justPressed.LEFT  #if android || _virtualpad.buttonLeft.justPressed #end){
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
@@ -1940,7 +1940,7 @@ class ChartingState extends MusicBeatState
 				}
 
 				var feces:Float;
-				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN #if mobile || _virtualpad.buttonUp.justPressed || _virtualpad.buttonDown.justPressed #end)
+				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN #if android || _virtualpad.buttonUp.justPressed || _virtualpad.buttonDown.justPressed #end)
 				{
 					FlxG.sound.music.pause();
 
@@ -1953,7 +1953,7 @@ class ChartingState extends MusicBeatState
 					var beat:Float = curDecBeat;
 					var snap:Float = quantization / 4;
 					var increase:Float = 1 / snap;
-					if (FlxG.keys.pressed.UP #if mobile || _virtualpad.buttonUp.pressed #end)
+					if (FlxG.keys.pressed.UP #if android || _virtualpad.buttonUp.pressed #end)
 					{
 						var fuck:Float = CoolUtil.quantize(beat, snap) - increase;
 						feces = Conductor.beatToSeconds(fuck);
@@ -1995,12 +1995,12 @@ class ChartingState extends MusicBeatState
 				}
 			}
 			var shiftThing:Int = 1;
-			if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonY.pressed #end)
+			if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonY.pressed #end)
 				shiftThing = 4;
 
-			if (FlxG.keys.justPressed.D #if mobile || _virtualpad.buttonRight.justPressed #end)
+			if (FlxG.keys.justPressed.D #if android || _virtualpad.buttonRight.justPressed #end)
 				changeSection(curSec + shiftThing);
-			if (FlxG.keys.justPressed.A #if mobile || _virtualpad.buttonLeft.justPressed #end) {
+			if (FlxG.keys.justPressed.A #if android || _virtualpad.buttonLeft.justPressed #end) {
 				if(curSec <= 0) {
 					changeSection(_song.notes.length-1);
 				} else {
@@ -2143,7 +2143,7 @@ class ChartingState extends MusicBeatState
 			//trace('Custom vocals found');
 		}
 		else { #end
-			var leVocals:String = Paths.getStorageDirectory(currentSongName + '/Inst.' + Paths.SOUND_EXT, SOUND, 'songs');
+			var leVocals:String = Paths.getPath(currentSongName + '/Inst.' + Paths.SOUND_EXT, SOUND, 'songs');
 			if (OpenFlAssets.exists(leVocals)) { //Vanilla inst
 				audioBuffers[0] = AudioBuffer.fromFile('./' + leVocals.substr(6));
 				//trace('Inst found');
@@ -2161,7 +2161,7 @@ class ChartingState extends MusicBeatState
 			audioBuffers[1] = AudioBuffer.fromFile(Paths.modFolders('songs/' + currentSongName + '/Voices.ogg'));
 			//trace('Custom vocals found');
 		} else { #end
-			var leVocals:String = Paths.getStorageDirectory(currentSongName + '/Voices.' + Paths.SOUND_EXT, SOUND, 'songs');
+			var leVocals:String = Paths.getPath(currentSongName + '/Voices.' + Paths.SOUND_EXT, SOUND, 'songs');
 			if (OpenFlAssets.exists(leVocals)) { //Vanilla voices
 				audioBuffers[1] = AudioBuffer.fromFile('./' + leVocals.substr(6));
 				//trace('Voices found, LETS freakING GOOOO');
@@ -2572,7 +2572,7 @@ class ChartingState extends MusicBeatState
 		#if MODS_ALLOWED
 		var path:String = Paths.modFolders(characterPath);
 		if (!FileSystem.exists(path)) {
-			path = SUtil.getStorageDirectory() + Paths.getPreloadPath(characterPath);
+			path = SUtil.getPath() + Paths.getPreloadPath(characterPath);
 		}
 
 		if (!FileSystem.exists(path))
@@ -2581,7 +2581,7 @@ class ChartingState extends MusicBeatState
 		if (!OpenFlAssets.exists(path))
 		#end
 		{
-			path = SUtil.getStorageDirectory() + Paths.getPreloadPath('characters/' + Character.DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
+			path = SUtil.getPath() + Paths.getPreloadPath('characters/' + Character.DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 		}
 
 		#if MODS_ALLOWED
@@ -2921,7 +2921,7 @@ class ChartingState extends MusicBeatState
 		//	undos.push(newsong);
 		var noteStrum = getStrumTime(dummyArrow.y, false) + sectionStartTime();
 		var noteData = 0;
-		#if mobile
+		#if android
 		for (touch in FlxG.touches.list)
 		{
 			noteData = Math.floor((touch.x - GRID_SIZE) / GRID_SIZE);
@@ -3052,7 +3052,7 @@ class ChartingState extends MusicBeatState
 
 		if ((data != null) && (data.length > 0))
 		{
-			#if mobile
+			#if android
 			SUtil.saveContent(Paths.formatToSongPath(_song.song) + postfix, ".json", data.trim());
 			#else
 			_file = new FileReference();
@@ -3083,7 +3083,7 @@ class ChartingState extends MusicBeatState
 
 		if ((data != null) && (data.length > 0))
 		{
-			#if mobile
+			#if android
 			SUtil.saveContent("events", ".json", data.trim());
 			#else
 			_file = new FileReference();

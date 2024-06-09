@@ -525,7 +525,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -578,7 +578,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -630,7 +630,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -668,7 +668,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -750,7 +750,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -790,7 +790,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -835,7 +835,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -1034,7 +1034,7 @@ class FunkinLua {
 			var myClass:Dynamic = Type.resolveClass(classVar);
 			var killMe:Array<String> = variable.split('.');
 			
-		   #if mobile // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
+		   #if android // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
     			    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
@@ -1417,7 +1417,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "keyboardJustPressed", function(name:String)
 		{
-		    #if mobile // Extend for check control for android
+		    #if android // Extend for check control for android
             if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
     			    return true;
@@ -1432,7 +1432,7 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "keyboardPressed", function(name:String)
 		{
-		    #if mobile // Extend for check control for android
+		    #if android // Extend for check control for android
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.pressed){
     			    return true;
@@ -1447,7 +1447,7 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "keyboardReleased", function(name:String)
 		{
-		    #if mobile // Extend for check control for android
+		    #if android // Extend for check control for android
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justReleased){
     			    return true;
@@ -2209,7 +2209,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = SUtil.getStorageDirectory() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = SUtil.getPath() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 
@@ -2628,13 +2628,13 @@ class FunkinLua {
 			{
 				return true;
 			}
-			return FileSystem.exists(Paths.getStorageDirectory('assets/$filename', TEXT));
+			return FileSystem.exists(Paths.getPath('assets/$filename', TEXT));
 			#else
 			if(absolute)
 			{
 				return Assets.exists(filename);
 			}
-			return Assets.exists(Paths.getStorageDirectory('assets/$filename', TEXT));
+			return Assets.exists(Paths.getPath('assets/$filename', TEXT));
 			#end
 		});
 		Lua_helper.add_callback(lua, "saveFile", function(path:String, content:String, ?absolute:Bool = false)
@@ -2666,7 +2666,7 @@ class FunkinLua {
 				}
 				#end
 
-				var lePath:String = Paths.getStorageDirectory(path, TEXT);
+				var lePath:String = Paths.getPath(path, TEXT);
 				if(Assets.exists(lePath))
 				{
 					FileSystem.deleteFile(lePath);
@@ -2912,7 +2912,7 @@ class FunkinLua {
 	}
 	public static function getVarInArray(instance:Dynamic, variable:String, ?allowMaps:Bool = false):Any
 	{
-	    #if mobile //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
+	    #if android //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
 	        var pressCheck:Dynamic;
 	        if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){

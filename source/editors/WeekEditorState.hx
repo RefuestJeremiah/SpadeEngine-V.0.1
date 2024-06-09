@@ -343,7 +343,7 @@ class WeekEditorState extends MusicBeatState
 		var isMissing:Bool = true;
 		if(assetName != null && assetName.length > 0) {
 			if( #if MODS_ALLOWED FileSystem.exists(Paths.modsImages('menubackgrounds/menu_' + assetName)) || #end
-			Assets.exists(Paths.getStorageDirectory('images/menubackgrounds/menu_' + assetName + '.png', IMAGE), IMAGE)) {
+			Assets.exists(Paths.getPath('images/menubackgrounds/menu_' + assetName + '.png', IMAGE), IMAGE)) {
 				bgSprite.loadGraphic(Paths.image('menubackgrounds/menu_' + assetName));
 				isMissing = false;
 			}
@@ -362,7 +362,7 @@ class WeekEditorState extends MusicBeatState
 		var isMissing:Bool = true;
 		if(assetName != null && assetName.length > 0) {
 			if( #if MODS_ALLOWED FileSystem.exists(Paths.modsImages('storymenu/' + assetName)) || #end
-			Assets.exists(Paths.getStorageDirectory('images/storymenu/' + assetName + '.png', IMAGE), IMAGE)) {
+			Assets.exists(Paths.getPath('images/storymenu/' + assetName + '.png', IMAGE), IMAGE)) {
 				weekThing.loadGraphic(Paths.image('storymenu/' + assetName));
 				isMissing = false;
 			}
@@ -455,7 +455,7 @@ class WeekEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end) {
+			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
@@ -547,7 +547,7 @@ class WeekEditorState extends MusicBeatState
 		var data:String = Json.stringify(weekFile, "\t");
 		if (data.length > 0)
 		{
-			#if mobile
+			#if android
 			SUtil.saveContent(weekFileName, ".json", data);
 			#else
 			_file = new FileReference();
@@ -641,7 +641,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		addEditorBox();
 		changeSelection();
 
-		#if mobile
+		#if android
 		addVirtualPad(UP_DOWN, NONE);
 		#end
 
@@ -828,7 +828,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end) {
+			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
