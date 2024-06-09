@@ -121,12 +121,14 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		super();
 	}
 	
+	/*
 	function onStorageChange():Void
 	{
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 
 		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
 	}
+	*/
 	
 	override public function destroy() {
 		super.destroy();
