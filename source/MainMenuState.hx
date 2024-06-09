@@ -35,10 +35,10 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
+		//#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		#if !switch 'donate', #end
+	        //'credits',
+		//#if !switch 'donate', #end
 		'options'
 	];
 
@@ -49,6 +49,9 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
@@ -156,6 +159,10 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 
+		#if android
+		addVirtualPad(UP_DOWN, A_B_E_C_M);
+		#end
+
 		super.create();
 	}
 
@@ -200,6 +207,18 @@ class MainMenuState extends MusicBeatState
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
+			}
+			
+			if (_virtualpad.buttonM.justPressed)
+			{
+				selectedSomethin = true;
+				MusicBeatState.switchState(new ModsMenuState());
+			}
+			
+			if (_virtualpad.buttonC.justPressed)
+			{
+				selectedSomethin = true;
+				MusicBeatState.switchState(new CreditsState());
 			}
 
 			if (controls.ACCEPT)
@@ -255,11 +274,13 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
-			else if (FlxG.keys.anyJustPressed(debugKeys))
+			#if (desktop || android)
+			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || _virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
+			#end
 		}
 
 		super.update(elapsed);

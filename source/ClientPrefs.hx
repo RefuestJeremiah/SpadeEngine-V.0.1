@@ -7,7 +7,6 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
-	#if android public static var storageType:String = "EXTERNAL_DATA"; #end
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
@@ -24,16 +23,24 @@ class ClientPrefs {
 	public static var hideHud:Bool = false;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+	public static var vibration:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
-	public static var controllerMode:Bool = false;
+	public static var controllerMode:Bool = #if android true #else false #end;
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
+	#if android public static var storageType:String = 'PsychEngine'; #end
+        public static var hitboxhint = true;
+	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
+	public static var hitboxExtend:Int = 0;
+	public static var hitboxLocation:String = 'Bottom';
+	public static var hitboxalpha:Float = 0.2; //someone request this lol
+	public static var VirtualPadAlpha:Float = 0.75;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -95,7 +102,6 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
-		#if android FlxG.save.data.storageType = storageType; #end
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -112,6 +118,7 @@ class ClientPrefs {
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.arrowHSV = arrowHSV;
+		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
 		FlxG.save.data.scoreZoom = scoreZoom;
@@ -132,11 +139,20 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
+
+		FlxG.save.data.storageType = storageType;
+		FlxG.save.data.hitboxExtend = hitboxExtend;
+	    FlxG.save.data.hitboxLocation = hitboxLocation;
+		FlxG.save.data.hitboxmode = hitboxmode;
+                FlxG.save.data.hitboxhint = hitboxhint;
+		FlxG.save.data.hitboxalpha = hitboxalpha;
+		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
+	
 	
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', lime.app.Application.current.meta.get('company')); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+		save.bind('controls_v2' , CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		save.data.customControls = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -201,6 +217,9 @@ class ClientPrefs {
 		if(FlxG.save.data.arrowHSV != null) {
 			arrowHSV = FlxG.save.data.arrowHSV;
 		}
+		if(FlxG.save.data.vibration != null) {
+			vibration = FlxG.save.data.vibration;
+		}
 		if(FlxG.save.data.ghostTapping != null) {
 			ghostTapping = FlxG.save.data.ghostTapping;
 		}
@@ -241,14 +260,30 @@ class ClientPrefs {
 		if(FlxG.save.data.hitsoundVolume != null) {
 			hitsoundVolume = FlxG.save.data.hitsoundVolume;
 		}
-		if(FlxG.save.data.pauseMusic != null) {
-			pauseMusic = FlxG.save.data.pauseMusic;
-		}
-		#if android
 		if(FlxG.save.data.storageType != null) {
 			storageType = FlxG.save.data.storageType;
 		}
-		#end
+		if(FlxG.save.data.hitboxmode != null) {
+			hitboxmode = FlxG.save.data.hitboxmode;
+		}
+		if(FlxG.save.data.hitboxhint != null) {
+			hitboxhint = FlxG.save.data.hitboxhint;
+		}
+		if(FlxG.save.data.hitboxLocation != null) {
+			hitboxLocation = FlxG.save.data.hitboxLocation;
+		}
+		if(FlxG.save.data.hitboxExtend != null) {
+			hitboxExtend = FlxG.save.data.hitboxExtend;
+		}
+		if(FlxG.save.data.hitboxalpha != null) {
+			hitboxalpha = FlxG.save.data.hitboxalpha;
+		}
+		if(FlxG.save.data.VirtualPadAlpha != null) {
+			VirtualPadAlpha = FlxG.save.data.VirtualPadAlpha;
+		}
+		if(FlxG.save.data.pauseMusic != null) {
+			pauseMusic = FlxG.save.data.pauseMusic;
+		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
@@ -275,7 +310,7 @@ class ClientPrefs {
 			comboStacking = FlxG.save.data.comboStacking;
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', lime.app.Application.current.meta.get('company'));
+		save.bind('controls_v2' , CoolUtil.getSavePath());
 		if(save != null && save.data.customControls != null) {
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {
