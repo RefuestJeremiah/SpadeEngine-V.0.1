@@ -132,7 +132,7 @@ class AndroidControlsMenu extends MusicBeatState
 			trackbutton(touch);
 		}
 		
-		#if android
+		#if mobile
 		if (FlxG.android.justReleased.BACK)
 		{
 			save();
