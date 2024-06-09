@@ -34,11 +34,11 @@ class SUtil
 		#if android
 		if (aDir != null && aDir.length > 0)
 			return aDir;
-		else if (ClientPrefs.storageType = "PsychEngine")
+		else if (ClientPrefs.storageType == 'PsychEngine')
 			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
-		else if (ClientPrefs.storageType = "NF_Engine")
+		else if (ClientPrefs.storageType == 'NF_Engine')
 			return aDir = '/storage/emulated/0/' + '.' + 'NF Engine' + '/';
-		else if (ClientPrefs.storageType = "NovaFlare")
+		else if (ClientPrefs.storageType == 'NovaFlare')
 			return aDir = '/storage/emulated/0/' + '.' + 'NovaFlare Engine' + '/';
 		#else
 		return '';

@@ -29,11 +29,19 @@ import Controls;
 import options.BaseOptionsMenu;
 import options.Option;
 import openfl.Lib;
+import haxe.io.Path;
+import sys.FileSystem;
+import sys.io.File;
 
 using StringTools;
 
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
+    /*
+    #if android
+	final lastStorageType:String = ClientPrefs.storageType;
+	#end
+	*/
 	public function new()
 	{
 		title = 'Hitbox Settings';
@@ -106,7 +114,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			'storageType',
 			'string',
 			'PsychEngine',
-			['MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
+			['NF_Engine', 'NovaFlare', 'PsychEngine']);
 		addOption(option);
 		#end
 
@@ -122,11 +130,13 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	
 	override public function destroy() {
 		super.destroy();
+		/*
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
 		}
 		#end
+		*/
 	}
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
